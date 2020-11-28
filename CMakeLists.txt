@@ -38,7 +38,7 @@ source_group("Header Files\\" FILES ${HDR})
 source_group("Source Files\\" FILES ${SRC})
 
 # Add all files to executable.
-add_executable(${NAME} basic-glut.cpp)
+add_executable(${NAME} src/basic-glut.cpp)
 
 # Use freeglut on Windows.
 if (WIN32)
