@@ -1,19 +1,13 @@
-# Min. CMake version.
-#cmake_minimum_required(VERSION 2.8.10)
+# CMake standard
 cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 20)
 
-
 # Project name.
 set(NAME project)
-
-# A name of the project.
 project(${NAME})
 
+# Find GLUT and OpenGL
 find_package(OpenGL REQUIRED)
-
-
-# GLUT.
 find_package(GLUT)
 
 # Set general compiler flags.
@@ -26,16 +20,8 @@ else() # linux
 endif (WIN32)
 
 
-# Use GUI.
-#add_definitions(-DUSE_GUI=1)
-# define local macro which is definitely not enabled in automatic eval
-add_definitions(-DLOCAL=1)
-
 # Find includes in corresponding build directories.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-source_group("Header Files\\" FILES ${HDR})
-source_group("Source Files\\" FILES ${SRC})
 
 # Add all files to executable.
 add_executable(${NAME} src/basic-glut.cpp)
@@ -60,8 +46,6 @@ if (WIN32)
                 )
     endif (NOT GLUT_FOUND)
 endif (WIN32)
-
-message(STATUS "${GLUT_LIBRARIES} ${GLUT_INCLUDE_DIR}")
 
 # Add include directories.
 set(SGL_INCLUDE_DIR ./sgl)
