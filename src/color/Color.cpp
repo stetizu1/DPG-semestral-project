@@ -1,9 +1,9 @@
 #include "Color.h"
 
 
-Color::Color(float r, float g, float b) : r(r), g(g), b(b) {}
-
 Color::Color() : r(0.f), g(0.f), b(0.f) {}
+
+Color::Color(float r, float g, float b) : r(r), g(g), b(b) {}
 
 Color Color::operator+(const Color &other) const {
   return {r + other.r, g + other.g, b + other.b};
@@ -76,7 +76,7 @@ Color Color::operator/=(float k) {
 }
 
 std::string Color::to_string() const {
-  std::string R_S = std::to_string(r), G_S = std::to_string(g), B_S = std::to_string(b);
+  auto R_S = std::to_string(r), G_S = std::to_string(g), B_S = std::to_string(b);
   return "rgb(" + R_S + ", " + G_S + ", " + B_S + ")";
 }
 

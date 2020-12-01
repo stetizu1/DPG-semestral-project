@@ -25,9 +25,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Add all files to executable.
 add_executable(${NAME}
-    src/basic-glut.cpp
-    src/color/Color.cpp
-    src/color/Color.h
+    src/main.cpp
+    src/color/Color.cpp src/color/Color.h
+    src/point/Point3d.cpp src/point/Point3d.h
+    src/vector/Vector3d.cpp src/vector/Vector3d.h
+    src/ray/Ray.cpp src/ray/Ray.h
     )
 
 # Use freeglut on Windows.
