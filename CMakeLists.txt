@@ -40,16 +40,26 @@ if (NOT GLUT_FOUND)
       )
 endif (NOT GLUT_FOUND)
 
+find_library(CORONA_LIBRARIES
+    NAMES corona
+    PATHS
+    exe/corona-1.0.2-vc7/lib
+    DOC "The CORONA library"
+    )
+find_path(CORONA_INCLUDE_DIR corona.h
+    exe/corona-1.0.2-vc7/include
+    DOC "The directory where corona.h resides"
+    )
+
 # Add include directories.
-set(SGL_INCLUDE_DIR ./sgl)
 include_directories(SYSTEM
-    ${SGL_INCLUDE_DIR}
+    ${CORONA_INCLUDE_DIR}
     ${GLUT_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
     )
 
 # Link libraries.
-target_link_libraries(${NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+target_link_libraries(${NAME} ${CORONA_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
 
 # Set output directory.
 set(BIN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/exe")

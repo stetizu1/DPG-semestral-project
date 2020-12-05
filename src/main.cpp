@@ -1,22 +1,23 @@
 #include <GL/glut.h>
-#include <iostream>
+#include <src/heightmap-reader/HeightMapReader.h>
 #include <vector>
+
 
 #include "src/color/Color.h"
 
 
 struct Bitmap {
-  int width;
-  int height;
+  unsigned width, height;
   std::vector<Color> image;
 
-  Bitmap(int width, int height)
-      : width(width), height(height) {
+  Bitmap(unsigned int width, unsigned int height)
+    : width(width), height(height) {
     image.resize(width * height);
   }
 };
 
-Bitmap bitmap(512, 512);
+HeightMapReader reader("../data/Sumava.png");
+Bitmap bitmap(reader.getImageWidth(), reader.getImageHeight());
 
 void drawImage() {
   glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -33,11 +34,12 @@ void onFrame() {
   if (counter > 1) {
     counter = 0;
   }
-  Color c(counter, counter, counter);
-  std::cout << c << "\n";
+  Color c(counter, 0, 0);
   for (int y = 0; y < bitmap.height; y++) {
     for (int x = 0; x < bitmap.width; x++) {
-      bitmap.image[y * bitmap.width + x] = {counter, 0, 0};
+      float k = reader.getIntensityAt(x, y);
+      Color kk(k, k, k);
+      bitmap.image[y * bitmap.width + x] = (kk + (c/4));
     }
   }
   glutPostRedisplay();
@@ -53,7 +55,7 @@ void onKeys(unsigned char key, int x, int y) {
 int main(int argc, char **argv) {
   glutInit(&argc, argv);
 
-  glutInitWindowSize(bitmap.width, bitmap.height);
+  glutInitWindowSize((int)bitmap.width, (int)bitmap.height);
 
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
