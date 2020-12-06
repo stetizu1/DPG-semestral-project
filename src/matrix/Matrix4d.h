@@ -2,6 +2,11 @@
 
 #include "src/vector/Vector4d.h"
 
+/**
+ * Type for transformation matrices.
+ * Provides static functions for basic matrix transformation (identity, translate, rotate (x, y, z), scale)
+ * Provides multiplication by other matrix or by 4d vector, transposition and inverting
+ */
 class Matrix4d {
   float data[4][4];
   /**
@@ -25,7 +30,14 @@ class Matrix4d {
   [[nodiscard]] float getDeterminant(const float matrixData[4][4], int n = 4) const;
 
 public:
+  /**
+   * Create empty 4d matrix full of 0s
+   */
   Matrix4d();
+  /**
+   * Create matrix with given data
+   * @param data
+   */
   explicit Matrix4d(float data[4][4]);
 
   Vector4d operator*(const Vector4d &vector) const;

@@ -13,7 +13,7 @@ class Ray {
 
 public:
   /**
-   * Crate ray wit given origin and direction
+   * Crate ray with given origin and direction
    * @param origin - origin of the ray
    * @param direction - direction where ray is heading
    */
