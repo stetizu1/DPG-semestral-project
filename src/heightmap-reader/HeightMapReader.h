@@ -13,7 +13,13 @@
  */
 class HeightMapReader {
   std::vector<std::vector<unsigned char>> imageMatrix;
-  // to read grayscale, rgb and rgba
+  /**
+   * Reads intensities of pixels from gray / one of rgb channel determined by step
+   * @param width - width of image
+   * @param height - height of image
+   * @param pixels - pixels information in image
+   * @param step - step that determines channel we take the intensity from
+   */
   void readFormat(unsigned width, unsigned height, const unsigned char *pixels, unsigned step);
 
 public:
@@ -27,13 +33,13 @@ public:
    * Get width of image
    * @return width of image (pixel width of file)
    */
-  unsigned getImageWidth();
+  [[nodiscard]] unsigned getImageWidth() const;
 
   /**
    * Get height of image
    * @return height of image (pixel height of file)
    */
-  unsigned getImageHeight();
+  [[nodiscard]] unsigned getImageHeight() const;
 
   /**
    * get intensity on queried position
@@ -41,5 +47,5 @@ public:
    * @param y - y coordinate
    * @return intensity at [x, y]
    */
-  float getIntensityAt(unsigned x, unsigned y);
+  [[nodiscard]] float getIntensityAt(unsigned x, unsigned y) const;
 };

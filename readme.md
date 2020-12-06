@@ -1,5 +1,8 @@
 # Ray Tracing Of Height Fields
 
+
+The program is written for Windows 10.
+
 Inspired by: Accelerating the Ray Tracing of height fields https://www.researchgate.net/publication/220979067_Accelerating_the_ray_tracing_of_height_fields
 
 Author: Zuzana Štětinová, stetizu1@fel.cvut.cz

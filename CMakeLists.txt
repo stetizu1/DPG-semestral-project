@@ -23,8 +23,10 @@ add_executable(${NAME}
     src/color/Color.cpp src/color/Color.h
     src/point/Point3d.cpp src/point/Point3d.h
     src/vector/Vector3d.cpp src/vector/Vector3d.h
+    src/vector/Vector4d.cpp src/vector/Vector4d.h
     src/ray/Ray.cpp src/ray/Ray.h
     src/heightmap-reader/HeightMapReader.cpp src/heightmap-reader/HeightMapReader.h
+    src/matrix/Matrix4d.cpp src/matrix/Matrix4d.h
     )
 
 if (NOT GLUT_FOUND)

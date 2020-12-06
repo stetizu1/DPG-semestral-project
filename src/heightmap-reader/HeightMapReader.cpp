@@ -45,17 +45,17 @@ HeightMapReader::HeightMapReader(const std::string &fileName) {
 
   delete img;
 }
-unsigned HeightMapReader::getImageHeight() {
+unsigned HeightMapReader::getImageHeight() const {
   if (imageMatrix.empty()) return 0;
   return imageMatrix[0].size();
 }
 
-unsigned HeightMapReader::getImageWidth() {
+unsigned HeightMapReader::getImageWidth() const {
   return imageMatrix.size();
 }
-float HeightMapReader::getIntensityAt(unsigned x, unsigned y) {
+float HeightMapReader::getIntensityAt(unsigned x, unsigned y) const {
   if (getImageWidth() <= x || getImageHeight() <= y) {
     throw std::out_of_range("point out of range was queried");
   }
-  return float(imageMatrix[x][y]) / 256.f;
+  return float(imageMatrix[x][y]) / (float)std::numeric_limits<unsigned char>::max();
 }
