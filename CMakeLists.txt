@@ -27,6 +27,7 @@ add_executable(${NAME}
     src/ray/Ray.cpp src/ray/Ray.h
     src/heightmap-reader/HeightMapReader.cpp src/heightmap-reader/HeightMapReader.h
     src/matrix/Matrix4d.cpp src/matrix/Matrix4d.h
+    src/heightmap/HeightMap.cpp src/heightmap/HeightMap.h
     )
 
 if (NOT GLUT_FOUND)

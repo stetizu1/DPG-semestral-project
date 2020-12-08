@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <src/heightmap-reader/HeightMapReader.h>
 #include <vector>
+#include <src/heightmap/HeightMap.h>
 
 
 #include "src/color/Color.h"
@@ -16,7 +17,7 @@ struct Bitmap {
   }
 };
 
-HeightMapReader reader("../data/Sumava.png");
+HeightMapReader reader("../data/world.jpg");
 Bitmap bitmap(reader.getImageWidth(), reader.getImageHeight());
 
 void drawImage() {
@@ -35,11 +36,11 @@ void onFrame() {
     counter = 0;
   }
   Color c(counter, 0, 0);
-  for (int y = 0; y < bitmap.height; y++) {
-    for (int x = 0; x < bitmap.width; x++) {
-      float k = reader.getIntensityAt(x, y);
+  for (int y = 0; y < bitmap.width; y++) {
+    for (int x = 0; x < bitmap.height; x++) {
+      float k = reader.getIntensityAt(bitmap.height - 1 - x, y);
       Color kk(k, k, k);
-      bitmap.image[y * bitmap.width + x] = (kk + (c/4));
+      bitmap.image[x * bitmap.width + y] = (kk + (c/4));
     }
   }
   glutPostRedisplay();
@@ -53,6 +54,8 @@ void onKeys(unsigned char key, int x, int y) {
 }
 
 int main(int argc, char **argv) {
+  HeightMap hm(200, reader);
+
   glutInit(&argc, argv);
 
   glutInitWindowSize((int)bitmap.width, (int)bitmap.height);

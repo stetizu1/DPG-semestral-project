@@ -12,7 +12,7 @@
  * Class for reading height map from file
  */
 class HeightMapReader {
-  std::vector<std::vector<unsigned char>> imageMatrix;
+  std::vector<std::vector<float>> imageMatrix;
   /**
    * Reads intensities of pixels from gray / one of rgb channel determined by step
    * @param width - width of image
@@ -43,9 +43,9 @@ public:
 
   /**
    * get intensity on queried position
-   * @param x - x coordinate
-   * @param y - y coordinate
-   * @return intensity at [x, y]
+   * @param row - row
+   * @param col - column
+   * @return intensity at position
    */
-  [[nodiscard]] float getIntensityAt(unsigned x, unsigned y) const;
+  [[nodiscard]] float getIntensityAt(unsigned row, unsigned col) const;
 };

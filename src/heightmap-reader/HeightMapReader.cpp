@@ -3,9 +3,9 @@
 void HeightMapReader::readFormat(unsigned width, unsigned height, const unsigned char *pixels, const unsigned step) {
   for (unsigned i = 0; i < width * height; ++i) {
     unsigned char v = *pixels;
-    unsigned x = i % width;
-    unsigned y = height - 1 - i / width;
-    imageMatrix[x][y] = v;
+    unsigned x = i / width;
+    unsigned y = i % width;
+    imageMatrix[x][y] = (float)v / (float)std::numeric_limits<unsigned char>::max();
     pixels += step;
   }
 }
@@ -22,10 +22,8 @@ HeightMapReader::HeightMapReader(const std::string &fileName) {
   int height = img->getHeight();
   auto *pixels = (unsigned char *) img->getPixels();
 
-  imageMatrix = std::vector<std::vector<unsigned char>>(width);
-  for (int i = 0; i < width; i++) {
-    imageMatrix[i] = std::vector<unsigned char>(height);
-  }
+  imageMatrix = std::vector<std::vector<float>>(height);
+  for (int i = 0; i < height; i++) imageMatrix[i] = std::vector<float>(width);
 
   corona::PixelFormat format = img->getFormat();
   switch (format) {
@@ -33,8 +31,10 @@ HeightMapReader::HeightMapReader(const std::string &fileName) {
       readFormat(width, height, pixels, 1);
       break;
     case corona::PF_B8G8R8:
+    case corona::PF_R8G8B8:
       readFormat(width, height, pixels, 3);
       break;
+    case corona::PF_B8G8R8A8:
     case corona::PF_R8G8B8A8:
       readFormat(width, height, pixels, 4);
       break;
@@ -47,15 +47,16 @@ HeightMapReader::HeightMapReader(const std::string &fileName) {
 }
 unsigned HeightMapReader::getImageHeight() const {
   if (imageMatrix.empty()) return 0;
-  return imageMatrix[0].size();
+  return imageMatrix.size();
 }
 
 unsigned HeightMapReader::getImageWidth() const {
-  return imageMatrix.size();
+  return imageMatrix[0].size();
 }
-float HeightMapReader::getIntensityAt(unsigned x, unsigned y) const {
-  if (getImageWidth() <= x || getImageHeight() <= y) {
+float HeightMapReader::getIntensityAt(unsigned row, unsigned col) const {
+  if (col >= getImageWidth() || row >= getImageHeight()) {
+    std::cerr << "Queried point was ouf of range" << std::endl;
     throw std::out_of_range("point out of range was queried");
   }
-  return float(imageMatrix[x][y]) / (float)std::numeric_limits<unsigned char>::max();
+  return imageMatrix[row][col];
 }
