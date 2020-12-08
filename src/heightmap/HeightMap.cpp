@@ -1,7 +1,8 @@
 #include "HeightMap.h"
 
 
-HeightMap::HeightMap(unsigned height, const HeightMapReader &reader) : height(height) {
+HeightMap::HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth)
+  : height(height), width(width), depth(depth) {
   auto imgHeight = reader.getImageHeight(), imgWidth = reader.getImageWidth();
   map = std::vector<std::vector<Cell>>(imgHeight - 1);
   for (auto row = 0; row < imgHeight - 1; row++) {
@@ -21,34 +22,33 @@ HeightMap::HeightMap(unsigned height, const HeightMapReader &reader) : height(he
   }
 }
 
-unsigned HeightMap::getXWidth() const {
-  return map.size();
-}
-
-unsigned HeightMap::getZWidth() const {
-  return map[0].size();
-}
-
 std::string HeightMap::to_string() const {
-  auto H = std::to_string(height);
+  auto H = std::to_string(height), W = std::to_string(width), D = std::to_string(depth);
   std::string s = "heightMap(\r\n";
-  for (auto x = 0; x < getXWidth(); x++) {
+  for (const auto &row : map) {
     s += "  ";
-    for (auto z = 0; z < getZWidth(); z++) {
-      auto at = map[x][z];
+    for (const auto &val : row) {
       s += "{"
-        + std::to_string(at.topLeft).substr(0, 4) + ","
-        + std::to_string(at.topRight).substr(0, 4) + ","
-        + std::to_string(at.bottomLeft).substr(0, 4) + ","
-        + std::to_string(at.bottomRight).substr(0, 4) + " --> "
-        + std::to_string(at.maxHeight).substr(0, 4) + "} ";
+        + std::to_string(val.topLeft).substr(0, 4) + ","
+        + std::to_string(val.topRight).substr(0, 4) + ","
+        + std::to_string(val.bottomLeft).substr(0, 4) + ","
+        + std::to_string(val.bottomRight).substr(0, 4) + " --> "
+        + std::to_string(val.maxHeight).substr(0, 4) + "} ";
     }
     s += "\r\n";
   }
-  s += ") with height set to " + H;
+  s += ") with parameters (height, width, depth) set to " + H;
   return s;
 }
 std::ostream &operator<<(std::ostream &out, const HeightMap &h) {
   out << h.to_string();
   return out;
+}
+
+void HeightMap::setPosition(Point3d &point3D) {
+  position = point3D;
+}
+
+const Point3d &HeightMap::getPosition() const {
+  return position;
 }
