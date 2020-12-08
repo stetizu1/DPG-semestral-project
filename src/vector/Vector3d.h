@@ -7,14 +7,18 @@ class Vector3d {
   float x, y, z;
 
 public:
-  Vector3d();
   /**
-   * Create vector providing x, y, z
-   * @param x - distance in x axis
-   * @param y - distance in y axis
-   * @param z - distance in z axis
+   * Create vector (0, 0, 0)
    */
-  Vector3d(float x, float y, float z);
+  explicit Vector3d();
+
+  /**
+   * Create vector with provided x, y, z
+   * @param x - length in x axis
+   * @param y - length in y axis
+   * @param z - length in z axis
+   */
+  explicit Vector3d(float x, float y, float z);
 
   Vector3d operator+(const Vector3d &other) const;
   Vector3d operator+=(const Vector3d &other);
@@ -34,9 +38,22 @@ public:
 
   friend inline Vector3d operator-(const Vector3d &vector);
 
-  // getters
+  /**
+   * Get x direction of vector
+   * @return x
+   */
   [[nodiscard]] float getX() const;
+
+  /**
+   * Get y direction of vector
+   * @return y
+   */
   [[nodiscard]] float getY() const;
+
+  /**
+   * Get z direction of vector
+   * @return z
+   */
   [[nodiscard]] float getZ() const;
 
   /**

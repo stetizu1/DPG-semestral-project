@@ -5,7 +5,7 @@ Vector3d::Vector3d(float x, float y, float z) : x(x), y(y), z(z) {}
 Vector3d::Vector3d() : x(0.f), y(0.f), z(0.f) {}
 
 Vector3d Vector3d::operator+(const Vector3d &other) const {
-  return {x + other.x, y + other.y, z + other.z};
+  return Vector3d(x + other.x, y + other.y, z + other.z);
 }
 
 Vector3d Vector3d::operator+=(const Vector3d &other) {
@@ -16,7 +16,7 @@ Vector3d Vector3d::operator+=(const Vector3d &other) {
 }
 
 Vector3d Vector3d::operator-(const Vector3d &other) const {
-  return {x - other.x, y - other.y, z - other.z};
+  return Vector3d(x - other.x, y - other.y, z - other.z);
 }
 
 Vector3d Vector3d::operator-=(const Vector3d &other) {
@@ -27,11 +27,11 @@ Vector3d Vector3d::operator-=(const Vector3d &other) {
 }
 
 Vector3d Vector3d::operator*(float k) const {
-  return {x * k, y * k, z * k};
+  return Vector3d(x * k, y * k, z * k);
 }
 
 Vector3d operator*(float k, const Vector3d &vector) {
-  return {vector.x * k, vector.y * k, vector.z * k};
+  return Vector3d(vector.x * k, vector.y * k, vector.z * k);
 }
 
 Vector3d Vector3d::operator*=(float k) {
@@ -42,7 +42,7 @@ Vector3d Vector3d::operator*=(float k) {
 }
 
 Vector3d Vector3d::operator/(float k) const {
-  return {x / k, y / k, z / k};
+  return Vector3d(x / k, y / k, z / k);
 }
 
 Vector3d Vector3d::operator/=(float k) {
@@ -88,14 +88,14 @@ float Vector3d::dotProduct(const Vector3d &other) const {
 
 Vector3d Vector3d::crossProduct(const Vector3d &other) const {
   auto ox = other.x, oy = other.y, oz = other.z;
-  return {
+  return Vector3d(
     y * oz - z * oy,
     z * ox - x * oz,
-    x * oy - y * ox,
-  };
+    x * oy - y * ox
+  );
 }
 
 Vector3d Vector3d::normalized() const {
   auto l = length();
-  return {x / l, y / l, z / l};
+  return Vector3d(x / l, y / l, z / l);
 }

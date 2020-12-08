@@ -5,6 +5,7 @@
 
 
 #include "src/color/Color.h"
+#include "scene.h"
 
 
 struct Bitmap {
@@ -54,7 +55,8 @@ void onKeys(unsigned char key, int x, int y) {
 }
 
 int main(int argc, char **argv) {
-  HeightMap hm(200, reader);
+  HeightMap hm(reader, 200, 200, 200);
+  std::cout << scene::lights[0].getPosition();
 
   glutInit(&argc, argv);
 

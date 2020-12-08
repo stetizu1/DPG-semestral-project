@@ -13,14 +13,14 @@ class Point3d {
   float x, y, z;
 
 public:
-  Point3d();
+  explicit Point3d();
   /**
    * Create point with provided x, y, z coordinates.
    * @param x - x coordinate
    * @param y - y coordinate
    * @param z - z coordinate
    */
-  Point3d(float x, float y, float z);
+  explicit Point3d(float x, float y, float z);
 
   Point3d operator+(const Point3d &other) const;
   Point3d operator+=(const Point3d &other);

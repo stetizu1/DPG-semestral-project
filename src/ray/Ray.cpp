@@ -1,6 +1,6 @@
 #include "Ray.h"
 
-Ray::Ray(Point3d &origin, Vector3d &direction) : origin(origin), direction(direction) {}
+Ray::Ray(const Point3d &origin, const Vector3d &direction) : origin(origin), direction(direction) {}
 
 Point3d Ray::getPointOnParameter(const float t) const {
   return origin + t * direction;

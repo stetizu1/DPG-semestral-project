@@ -11,14 +11,18 @@
 class Color {
   float r, g, b;
 public:
-  Color();
+  /**
+   * Create white color
+   */
+  explicit Color();
+
   /**
    * Create color with provided rgb values
    * @param r - red
    * @param g - green
    * @param b - blue
    */
-  Color(float r, float g, float b);
+  explicit Color(float r, float g, float b);
 
   Color operator+(const Color &other) const;
   Color operator+=(const Color &other);

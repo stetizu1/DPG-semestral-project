@@ -1,12 +1,12 @@
 #include "Color.h"
 
 
-Color::Color() : r(0.f), g(0.f), b(0.f) {}
+Color::Color() : r(1.f), g(1.f), b(1.f) {}
 
 Color::Color(float r, float g, float b) : r(r), g(g), b(b) {}
 
 Color Color::operator+(const Color &other) const {
-  return {r + other.r, g + other.g, b + other.b};
+  return Color(r + other.r, g + other.g, b + other.b);
 }
 
 Color Color::operator+=(const Color &other) {
@@ -17,7 +17,7 @@ Color Color::operator+=(const Color &other) {
 }
 
 Color Color::operator-(const Color &other) const {
-  return {r - other.r, g - other.g, b - other.b};
+  return Color(r - other.r, g - other.g, b - other.b);
 }
 
 Color Color::operator-=(const Color &other) {
@@ -28,7 +28,7 @@ Color Color::operator-=(const Color &other) {
 }
 
 Color Color::operator*(const Color &other) const {
-  return {r * other.r, g * other.g, b * other.b};
+  return Color(r * other.r, g * other.g, b * other.b);
 }
 
 Color Color::operator*=(const Color &other) {
@@ -39,7 +39,7 @@ Color Color::operator*=(const Color &other) {
 }
 
 Color Color::operator/(const Color &other) const {
-  return {r / other.r, g / other.g, b / other.b};
+  return Color(r / other.r, g / other.g, b / other.b);
 }
 
 Color Color::operator/=(const Color &other) {
@@ -50,11 +50,11 @@ Color Color::operator/=(const Color &other) {
 }
 
 Color Color::operator*(float k) const {
-  return {r * k, g * k, b * k};
+  return Color(r * k, g * k, b * k);
 }
 
 Color operator*(float k, const Color &color) {
-  return {color.r * k, color.g * k, color.b * k};
+  return Color(color.r * k, color.g * k, color.b * k);
 }
 
 Color Color::operator*=(float k) {
@@ -65,7 +65,7 @@ Color Color::operator*=(float k) {
 }
 
 Color Color::operator/(float k) const {
-  return {r / k, g / k, b / k};
+  return Color(r / k, g / k, b / k);
 }
 
 Color Color::operator/=(float k) {
@@ -76,7 +76,7 @@ Color Color::operator/=(float k) {
 }
 
 std::string Color::to_string() const {
-  auto R_S = std::to_string(r), G_S = std::to_string(g), B_S = std::to_string(b);
+  auto const R_S = std::to_string(r), G_S = std::to_string(g), B_S = std::to_string(b);
   return "rgb(" + R_S + ", " + G_S + ", " + B_S + ")";
 }
 

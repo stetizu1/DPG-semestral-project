@@ -1,6 +1,9 @@
 #include "Vector4d.h"
 
+Vector4d::Vector4d(): x(0.f), y(0.f), z(0.f), w(1.f) {}
+
 Vector4d::Vector4d(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
+
 Vector4d::Vector4d(float arr[4]): x(arr[0]), y(arr[1]), z(arr[2]), w(arr[3]) {}
 
 Vector4d Vector4d::operator+(const Vector4d &other) const {
@@ -37,9 +40,10 @@ float Vector4d::getW() const {
   return w;
 }
 
-Vector3d Vector4d::divideByW() const {
-  return Vector3d(x / w, y / w, z / w);
+Point3d Vector4d::divideByW() const {
+  return Point3d(x / w, y / w, z / w);
 }
+
 Vector3d Vector4d::ignoreW() const {
   return Vector3d(x, y, z);
 }

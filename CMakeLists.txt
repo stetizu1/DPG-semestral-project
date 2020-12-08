@@ -28,7 +28,7 @@ add_executable(${NAME}
     src/heightmap-reader/HeightMapReader.cpp src/heightmap-reader/HeightMapReader.h
     src/matrix/Matrix4d.cpp src/matrix/Matrix4d.h
     src/heightmap/HeightMap.cpp src/heightmap/HeightMap.h
-    )
+    src/scene.cpp src/light/Light.cpp src/light/Light.h src/scene.h)
 
 if (NOT GLUT_FOUND)
   find_library(GLUT_LIBRARIES

@@ -17,7 +17,7 @@ public:
    * @param origin - origin of the ray
    * @param direction - direction where ray is heading
    */
-  Ray(Point3d &origin, Vector3d &direction);
+  explicit Ray(const Point3d &origin, const Vector3d &direction);
 
   [[nodiscard]] Point3d getPointOnParameter(float t) const;
 

@@ -6,7 +6,7 @@ Point3d::Point3d(float x, float y, float z) : x(x), y(y), z(z) {}
 
 
 Point3d Point3d::operator+(const Point3d &other) const {
-  return {x + other.x, y + other.y, z + other.z};
+  return Point3d(x + other.x, y + other.y, z + other.z);
 }
 
 Point3d Point3d::operator+=(const Point3d &other) {
@@ -17,7 +17,7 @@ Point3d Point3d::operator+=(const Point3d &other) {
 }
 
 Point3d Point3d::operator-(const Point3d &other) const {
-  return {x - other.x, y - other.y, z - other.z};
+  return Point3d(x - other.x, y - other.y, z - other.z);
 }
 
 Point3d Point3d::operator-=(const Point3d &other) {
@@ -28,11 +28,11 @@ Point3d Point3d::operator-=(const Point3d &other) {
 }
 
 Point3d Point3d::operator*(float k) const {
-  return {x * k, y * k, z * k};
+  return Point3d(x * k, y * k, z * k);
 }
 
 Point3d operator*(float k, const Point3d &point) {
-  return {point.x * k, point.y * k, point.z * k};
+  return Point3d(point.x * k, point.y * k, point.z * k);
 }
 
 Point3d Point3d::operator*=(float k) {
@@ -43,7 +43,7 @@ Point3d Point3d::operator*=(float k) {
 }
 
 Point3d Point3d::operator/(float k) const {
-  return {x / k, y / k, z / k};
+  return Point3d(x / k, y / k, z / k);
 }
 
 Point3d Point3d::operator/=(float k) {

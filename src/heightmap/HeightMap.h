@@ -25,15 +25,15 @@ public:
    * @param height - height of the height map
    * @param depth - depth of the height map
    */
-  HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth);
+  explicit HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const HeightMap &h);
 
-   /**
-    * Set coordinates of the heightmap
-    * @param point3D - coordinates given by 3d point
-    */
+  /**
+   * Set coordinates of the heightmap
+   * @param point3D - coordinates given by 3d point
+   */
   void setPosition(Point3d &point3D);
 
   /**

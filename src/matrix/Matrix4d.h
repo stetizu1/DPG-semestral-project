@@ -33,7 +33,7 @@ public:
   /**
    * Create empty 4d matrix full of 0s
    */
-  Matrix4d();
+  explicit Matrix4d();
   /**
    * Create matrix with given data
    * @param data
