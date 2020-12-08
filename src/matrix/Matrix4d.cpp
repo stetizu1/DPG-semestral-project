@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Matrix4d.h"
 
 void Matrix4d::getCofactor(const float matrixData[4][4], float cofactor[4][4], int r, int c, int n) {

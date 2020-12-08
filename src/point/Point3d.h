@@ -1,8 +1,9 @@
 #pragma once
 
 #include <ostream>
-#include <src/vector/Vector3d.h>
 #include <string>
+
+#include "src/vector/Vector3d.h"
 
 /**
  * Type of 3D point

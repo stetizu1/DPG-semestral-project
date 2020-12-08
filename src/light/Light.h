@@ -1,7 +1,7 @@
 #pragma once
 
-#include <src/color/Color.h>
-#include <src/point/Point3d.h>
+#include "src/color/Color.h"
+#include "src/point/Point3d.h"
 
 /**
  * Type for storing point light. Stores color and position as 3D point.

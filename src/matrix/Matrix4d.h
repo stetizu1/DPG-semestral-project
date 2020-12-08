@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include "src/vector/Vector4d.h"
 
 /**

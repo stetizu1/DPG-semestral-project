@@ -1,9 +1,9 @@
-#pragma
-
+#pragma once
 
 #include <vector>
-#include <src/heightmap-reader/HeightMapReader.h>
-#include <src/point/Point3d.h>
+
+#include "heightmap-reader/HeightMapReader.h"
+#include "src/point/Point3d.h"
 
 /**
  * Class to store height map, that was read by HeightMapReader

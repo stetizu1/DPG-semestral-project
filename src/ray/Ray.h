@@ -1,8 +1,7 @@
 #pragma once
 
-
-#include <src/point/Point3d.h>
-#include <src/vector/Vector3d.h>
+#include "src/point/Point3d.h"
+#include "src/vector/Vector3d.h"
 
 /**
  * Type for ray with origin and direction

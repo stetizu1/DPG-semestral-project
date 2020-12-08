@@ -25,10 +25,13 @@ add_executable(${NAME}
     src/vector/Vector3d.cpp src/vector/Vector3d.h
     src/vector/Vector4d.cpp src/vector/Vector4d.h
     src/ray/Ray.cpp src/ray/Ray.h
-    src/heightmap-reader/HeightMapReader.cpp src/heightmap-reader/HeightMapReader.h
+    src/heightmap/heightmap-reader/HeightMapReader.cpp src/heightmap/heightmap-reader/HeightMapReader.h
     src/matrix/Matrix4d.cpp src/matrix/Matrix4d.h
     src/heightmap/HeightMap.cpp src/heightmap/HeightMap.h
-    src/scene.cpp src/light/Light.cpp src/light/Light.h src/scene.h)
+    src/light/Light.cpp src/light/Light.h
+    src/scene.cpp src/scene.h
+    src/material/Material.cpp src/material/Material.h
+    )
 
 if (NOT GLUT_FOUND)
   find_library(GLUT_LIBRARIES
