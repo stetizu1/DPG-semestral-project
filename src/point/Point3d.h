@@ -46,4 +46,10 @@ public:
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Point3d &point);
+
+  /**
+   * Get point as a vector
+   * @return vector from given point
+   */
+  [[nodiscard]] Vector3d getAsVector() const;
 };

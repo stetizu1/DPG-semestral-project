@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <src/material/Material.h>
 
 #include "heightmap-reader/HeightMapReader.h"
 #include "src/point/Point3d.h"
@@ -16,6 +17,7 @@ class HeightMap {
   std::vector<std::vector<Cell>> map;
   unsigned height, width, depth;
   Point3d position;
+  Material material;
 
 public:
   /**

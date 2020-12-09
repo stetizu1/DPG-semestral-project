@@ -18,8 +18,25 @@ public:
    */
   explicit Ray(const Point3d &origin, const Vector3d &direction);
 
-  [[nodiscard]] Point3d getPointOnParameter(float t) const;
-
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Point3d &point);
+
+  /**
+   * Get point on parameter t
+   * @param t - parameter
+   * @return 3d point on parameter
+   */
+  [[nodiscard]] Point3d getPointOnParameter(float t) const;
+
+  /**
+   * Get ray origin
+   * @return origin of the ray
+   */
+  [[nodiscard]] const Point3d &getOrigin() const;
+
+  /**
+   * Get ray direction
+   * @return direction of the ray
+   */
+  [[nodiscard]] const Vector3d &getDirection() const;
 };
