@@ -32,6 +32,9 @@ public:
    */
   explicit Triangle(const Point3d points[]);
 
+  [[nodiscard]] std::string to_string() const;
+  friend std::ostream &operator<<(std::ostream &out, const Triangle &triangle);
+
   /**
    * Return triangle normal
    * @return normal of the triangle

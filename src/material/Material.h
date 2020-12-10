@@ -18,6 +18,9 @@ public:
    */
   Material(const Color &color, float kd, float ks = 0, float shine = 0);
 
+  [[nodiscard]] std::string to_string() const;
+  friend std::ostream &operator<<(std::ostream &out, const Material &m);
+
   /**
    * Get color of the material
    * @return rgb color

@@ -8,6 +8,21 @@ Triangle::Triangle(const Point3d &p1, const Point3d &p2, const Point3d &p3) : Tr
 
 Triangle::Triangle(const Point3d points[3]) : Triangle(points[0], points[1], points[2]) {}
 
+std::string Triangle::to_string() const {
+  const std::string nl = "\r\n";
+  auto s = "triangle (" + nl;
+  s += "  point: " + basePoint.to_string();
+  s += "  vectors: " + vectors[0].to_string() + ", " + vectors[1].to_string();
+  s += "  -- normal: " + normal.to_string();
+  s += ")";
+  return s;
+}
+
+std::ostream &operator<<(std::ostream &out, const Triangle &triangle) {
+  out << triangle.to_string();
+  return out;
+}
+
 const Vector3d &Triangle::getNormal() const {
   return normal;
 }

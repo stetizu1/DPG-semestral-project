@@ -10,6 +10,6 @@ const Material scene::materials[] = {
 };
 
 const HeightMap scene::heightMaps[] = {
-  HeightMap(HeightMapReader("../data/world.jpg"), 200, 200, 200)
+  HeightMap(HeightMapReader("../data/world.jpg"), 200, 200, 200, materials[0])
 };
 

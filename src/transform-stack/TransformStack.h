@@ -13,6 +13,9 @@ public:
    */
   explicit TransformStack();
 
+  [[nodiscard]] std::string to_string() const;
+  friend std::ostream &operator<<(std::ostream &out, const TransformStack &transformStack);
+
   /**
    * Push given matrix on the top of the stack
    * @param matrix

@@ -18,7 +18,9 @@ public:
    */
   explicit Light(const Point3d &position, const Color &colorIntensity = Color());
 
-public:
+  [[nodiscard]] std::string to_string() const;
+  friend std::ostream &operator<<(std::ostream &out, const Light &l);
+
   /**
    * Get color intensities of light (rgb color)
    * @return rgb color of light

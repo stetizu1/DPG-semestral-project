@@ -4,6 +4,19 @@ TransformStack::TransformStack() {
   stack.push(Matrix4d::getIdentityMatrix());
 }
 
+std::string TransformStack::to_string() const {
+  const std::string nl = "\r\n";
+  auto s = "transform stack(" + nl;
+  s += "  top: " + top().to_string();
+  s += ")";
+  return s;
+}
+
+std::ostream &operator<<(std::ostream &out, const TransformStack &transformStack) {
+  out << transformStack.to_string();
+  return out;
+}
+
 void TransformStack::pushMatrix(const Matrix4d &matrix) {
   stack.emplace(matrix);
 }

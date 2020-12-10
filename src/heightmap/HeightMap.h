@@ -26,8 +26,9 @@ public:
    * @param width - width of the height map
    * @param height - height of the height map
    * @param depth - depth of the height map
+   * @param material - material of the heightmap
    */
-  explicit HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth);
+  explicit HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth, const Material &material);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const HeightMap &h);

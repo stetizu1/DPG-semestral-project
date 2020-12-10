@@ -88,6 +88,7 @@ std::ostream &operator<<(std::ostream &out, const Point3d &point) {
   out << point.to_string();
   return out;
 }
+
 Vector3d Point3d::getAsVector() const {
   return Vector3d(x, y, z);
 }

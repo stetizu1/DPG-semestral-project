@@ -1,8 +1,8 @@
 #include "HeightMap.h"
 
 
-HeightMap::HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth)
-  : height(height), width(width), depth(depth) {
+HeightMap::HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth, const Material &material)
+  : height(height), width(width), depth(depth), material(material) {
   auto imgHeight = reader.getImageHeight(), imgWidth = reader.getImageWidth();
   map = std::vector<std::vector<Cell>>(imgHeight - 1);
   for (auto row = 0; row < imgHeight - 1; row++) {
