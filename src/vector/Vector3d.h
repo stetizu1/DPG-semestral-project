@@ -36,7 +36,7 @@ public:
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Vector3d &point);
 
-  friend inline Vector3d operator-(const Vector3d &vector);
+  friend Vector3d operator-(const Vector3d &vector);
 
   /**
    * Get x direction of vector
