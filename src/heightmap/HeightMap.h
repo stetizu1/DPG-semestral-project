@@ -45,4 +45,10 @@ public:
    */
   [[nodiscard]] const Point3d &getPosition() const;
 
+  /**
+   * Get material of the heightmap
+   * @return material of the height map
+   */
+  [[nodiscard]] const Material &getMaterial() const;
+
 };

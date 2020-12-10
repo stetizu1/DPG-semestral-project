@@ -32,6 +32,7 @@ add_executable(${NAME}
     src/scene.cpp src/scene.h
     src/material/Material.cpp src/material/Material.h
     src/context/Context.cpp src/context/Context.h src/transform-stack/TransformStack.cpp src/transform-stack/TransformStack.h src/triangle/Triangle.cpp src/triangle/Triangle.h
+    src/illumination/Illumination.cpp src/illumination/Illumination.h
     )
 
 if (NOT GLUT_FOUND)

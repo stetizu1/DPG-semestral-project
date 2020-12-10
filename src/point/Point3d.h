@@ -52,4 +52,16 @@ public:
    * @return vector from given point
    */
   [[nodiscard]] Vector3d getAsVector() const;
+
+  /**
+   * Get vector between this and other point
+   * @return 3d vector between this and other point
+   */
+  [[nodiscard]] Vector3d getVectorBetween(const Point3d &other) const;
+
+  /**
+   * Get normalized vector between this and other point
+   * @return normalized 3d vector between this and other point
+   */
+  [[nodiscard]] Vector3d getNormalizedVectorBetween(const Point3d &other) const;
 };

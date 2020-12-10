@@ -4,7 +4,7 @@ Triangle::Triangle(const Point3d &p, const Vector3d &v1, const Vector3d &v2) : b
   normal = vectors[0].crossProduct(vectors[1]).normalized();
 }
 
-Triangle::Triangle(const Point3d &p1, const Point3d &p2, const Point3d &p3) : Triangle(p1, (p2 - p1).getAsVector(), (p3 - p1).getAsVector()) {}
+Triangle::Triangle(const Point3d &p1, const Point3d &p2, const Point3d &p3) : Triangle(p1, p2.getVectorBetween(p1), p3.getVectorBetween(p1)) {}
 
 Triangle::Triangle(const Point3d points[3]) : Triangle(points[0], points[1], points[2]) {}
 
@@ -33,13 +33,13 @@ bool Triangle::getIntersection(const Ray &ray, float &intersectionT) const {
   if (divisor == 0.f) return false;
 
   float invertedDivisor = 1.f / divisor;
-  Point3d d = ray.getOrigin() - basePoint;
+  auto d = ray.getOrigin().getVectorBetween(basePoint);
 
-  float b1 = d.getAsVector().dotProduct(s1) * invertedDivisor;
+  float b1 = d.dotProduct(s1) * invertedDivisor;
   if (b1 < 0.f || b1 > 1.f) return false;
 
 
-  Vector3d s2 = d.getAsVector().crossProduct(vectors[0]);
+  Vector3d s2 = d.crossProduct(vectors[0]);
   float b2 = ray.getDirection().dotProduct(s2) * invertedDivisor;
   if (b2 < 0.f || b1 + b2 > 1.f) return false;
 

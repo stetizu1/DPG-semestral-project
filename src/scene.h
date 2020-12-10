@@ -11,15 +11,15 @@ struct scene {
   /**
    * Definition of scene lights
    */
-  static const Light lights[];
+  static const std::vector<Light> lights;
 
   /**
    * Definition of scene materials
    */
-  static const Material materials[];
+  static const std::vector<Material> materials;
 
   /**
    * Definition of scene height maps
    */
-   static const HeightMap heightMaps[];
+   static const std::vector<HeightMap> heightMaps;
 };

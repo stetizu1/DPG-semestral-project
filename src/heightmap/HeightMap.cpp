@@ -52,3 +52,7 @@ void HeightMap::setPosition(Point3d &point3D) {
 const Point3d &HeightMap::getPosition() const {
   return position;
 }
+
+const Material &HeightMap::getMaterial() const {
+  return material;
+}

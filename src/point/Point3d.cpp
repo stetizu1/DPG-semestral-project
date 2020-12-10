@@ -89,6 +89,10 @@ std::ostream &operator<<(std::ostream &out, const Point3d &point) {
   return out;
 }
 
-Vector3d Point3d::getAsVector() const {
-  return Vector3d(x, y, z);
+Vector3d Point3d::getVectorBetween(const Point3d &other) const {
+  return Vector3d(x - other.x, y - other.y, z - other.z);
+}
+
+Vector3d Point3d::getNormalizedVectorBetween(const Point3d &other) const {
+  return getVectorBetween(other).normalized();
 }
