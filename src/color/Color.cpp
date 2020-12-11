@@ -1,7 +1,7 @@
 #include "Color.h"
 
 
-Color::Color() : r(1.f), g(1.f), b(1.f) {}
+Color::Color() : r(0.f), g(0.f), b(0.f) {}
 
 Color::Color(float r, float g, float b) : r(r), g(g), b(b) {}
 

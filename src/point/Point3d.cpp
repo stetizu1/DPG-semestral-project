@@ -60,18 +60,22 @@ Point3d Point3d::operator+(const Vector3d &vector) const {
 Point3d operator+(Vector3d &vector, const Point3d &point) {
   return point + Point3d(vector.getX(), vector.getY(), vector.getZ());
 }
+
 Point3d Point3d::operator+=(const Vector3d &vector) {
   this->x += vector.getX();
   this->y += vector.getY();
   this->z += vector.getZ();
   return *this;
 }
+
 Point3d Point3d::operator-(const Vector3d &vector) const {
   return *this - Point3d(vector.getX(), vector.getY(), vector.getZ());
 }
-Point3d operator-(Vector3d &vector, const Point3d &point) {
-  return Point3d(vector.getX(), vector.getY(), vector.getZ()) - point;
+
+Vector3d operator-(Vector3d &vector, const Point3d &point) {
+  return Vector3d(vector.getX() - point.x, vector.getY() - point.y, vector.getZ() - point.z);
 }
+
 Point3d Point3d::operator-=(const Vector3d &vector) {
   this->x -= vector.getX();
   this->y -= vector.getY();

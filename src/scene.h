@@ -9,6 +9,48 @@
 
 struct scene {
   /**
+   * Default width of the window
+   */
+  constexpr static const unsigned defaultWidth = 512;
+
+  /**
+   * Default height of the window
+   */
+  constexpr static const unsigned defaultHeight = 512;
+
+  /**
+   * Field of view, angles in degrees
+   */
+  constexpr static const unsigned fov = 40;
+
+  /**
+   * Z near for perspective view
+   */
+  constexpr static const float zNear = 1.f;
+
+  /**
+  * Z far for perspective view
+  */
+  constexpr static const float zFar = 1800.f;
+
+
+  /**
+  * Default center point
+   */
+  const static Point3d defaultCenter;
+
+  /**
+   * Default eye position
+   */
+  const static Vector3d defaultEye;
+
+
+  /**
+   * Default up vector
+   */
+  const static Vector3d defaultUp;
+
+  /**
    * Definition of scene lights
    */
   static const std::vector<Light> lights;
@@ -21,5 +63,5 @@ struct scene {
   /**
    * Definition of scene height maps
    */
-   static const std::vector<HeightMap> heightMaps;
+  static const std::vector<HeightMap> heightMaps;
 };

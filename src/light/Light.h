@@ -16,7 +16,7 @@ public:
    * @param position - light position
    * @param colorIntensity - intensity of rgb colors
    */
-  explicit Light(const Point3d &position, const Color &colorIntensity = Color());
+  explicit Light(const Point3d &position, const Color &colorIntensity = Color(1.f, 1.f, 1.f));
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Light &l);

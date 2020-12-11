@@ -1,6 +1,12 @@
 #include "scene.h"
 
 
+const Point3d scene::defaultCenter = Point3d(275.f, 275.f, 0.f);
+
+const Vector3d scene::defaultEye = Vector3d(275.f, 275.f, -800.f);
+
+const Vector3d scene::defaultUp = Vector3d(0.f, 1.f, 0.f);
+
 const std::vector<Light> scene::lights = {
   Light(Point3d(275, 549, 295))
 };

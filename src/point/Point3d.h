@@ -41,17 +41,11 @@ public:
   Point3d operator+=(const Vector3d &vector);
 
   Point3d operator-(const Vector3d &vector) const;
-  friend Point3d operator-(Vector3d &vector, const Point3d &point);
+  friend Vector3d operator-(Vector3d &vector, const Point3d &point);
   Point3d operator-=(const Vector3d &vector);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Point3d &point);
-
-  /**
-   * Get point as a vector
-   * @return vector from given point
-   */
-  [[nodiscard]] Vector3d getAsVector() const;
 
   /**
    * Get vector between this and other point
