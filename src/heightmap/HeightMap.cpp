@@ -56,3 +56,26 @@ const Point3d &HeightMap::getPosition() const {
 const Material &HeightMap::getMaterial() const {
   return material;
 }
+
+HasIntersection HeightMap::findIntersection(const Ray &ray) const {
+  // todo
+  // find intersection with bounding box of the height map
+    // if there is none, return t
+  // find sequence of cells
+  // find if there is intersection with bounding box of the cell (min ray height < max cell height)
+    // if there is none, continue
+    // if there is, find intersection with triangles, if there is, return, else continue in sequence
+
+
+
+
+  // delete this
+  static float counter = 0;
+  counter += 0.01f;
+
+  if(counter < 100) {
+    return HasIntersection::doesNotIntersect();
+  }
+
+  return HasIntersection(counter, Vector3d(counter, counter, counter).normalized());
+}

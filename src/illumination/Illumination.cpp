@@ -1,11 +1,12 @@
+#include <iostream>
 #include "Illumination.h"
 
-Color Illumination::getDirectPhongIllumination(const Context &context, const Material &material, const Triangle &triangle, const Ray &ray, float t) {
+Color Illumination::getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const HasIntersection &intersection) {
   auto color = Color(0, 0, 0);
-  auto intersectPoint = ray.getPointOnParameter(t);
+  auto intersectPoint = ray.getPointOnParameter(intersection.getT());
+  auto normal = intersection.getNormal();
 
-  auto normal = triangle.getNormal();
-  for (auto light : context.getLights()) {
+  for (auto light : lights) {
     auto directionToViewer = -ray.getDirection();
     auto directionToLight = light.getPosition().getNormalizedVectorBetween(intersectPoint);
     auto directionOfReflectedLight = (normal * (2.f * directionToLight.dotProduct(normal))) - directionToLight;

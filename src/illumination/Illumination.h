@@ -1,21 +1,23 @@
 #pragma once
 
+#include <vector>
+
+#include "src/light/Light.h"
 #include "src/material/Material.h"
 #include "src/color/Color.h"
-#include "src/triangle/Triangle.h"
-#include "src/context/Context.h"
+#include "src/ray/Ray.h"
+#include "src/helper-types/HasIntersection.h"
 
 class Illumination {
 
 public:
   /**
    * Get direct phong illumination at ray-triangle intersection
-   * @param context - scene context
+   * @param lights - scene lights
    * @param material - material of the triangle
-   * @param triangle - intersected triangle
    * @param ray - intersected ray
-   * @param t - parameter of intersection
+   * @param intersection - intersection determined by parameter t and normal
    * @return color at the intersection
    */
-  static Color getDirectPhongIllumination(const Context &context, const Material &material, const Triangle &triangle, const Ray &ray, float t);
+  static Color getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const HasIntersection &t);
 };

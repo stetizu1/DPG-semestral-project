@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include "src/color/Color.h"
 #include "src/material/Material.h"
 #include "src/heightmap/HeightMap.h"
 #include "light/Light.h"
@@ -49,6 +50,11 @@ struct scene {
    * Default up vector
    */
   const static Vector3d defaultUp;
+
+  /**
+   * Default color of the background
+   */
+  const static Color defaultBgColor;
 
   /**
    * Definition of scene lights

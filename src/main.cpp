@@ -16,7 +16,7 @@ struct Bitmap {
 };
 
 Bitmap bitmap(scene::defaultWidth, scene::defaultHeight);
-Context ctx;
+Context *pContext;
 
 void drawImage() {
   glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -34,9 +34,10 @@ void onFrame() {
 //    counter = 0;
 //  }
 //  Color c(counter, 0, 0);
+  if (pContext == nullptr) return;
   for (int y = 0; y < bitmap.width; y++) {
     for (int x = 0; x < bitmap.height; x++) {
-      auto color = ctx.getColorBuffer()[x][y];
+      auto color = pContext->getColorBuffer()[x][y];
       bitmap.image[x + bitmap.height * y] = color;
     }
   }
@@ -51,7 +52,9 @@ void onKeys(unsigned char key, int x, int y) {
 }
 
 int main(int argc, char **argv) {
-  ctx.addHeightMap(scene::heightMaps[0]);
+  auto hm = scene::heightMaps[0];
+  auto context = Context();
+  pContext = &context;
 
   glutInit(&argc, argv);
 

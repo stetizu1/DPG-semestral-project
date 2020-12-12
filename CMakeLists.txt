@@ -33,6 +33,9 @@ add_executable(${NAME}
     src/material/Material.cpp src/material/Material.h
     src/context/Context.cpp src/context/Context.h src/transform-stack/TransformStack.cpp src/transform-stack/TransformStack.h src/triangle/Triangle.cpp src/triangle/Triangle.h
     src/illumination/Illumination.cpp src/illumination/Illumination.h
+    src/helper-types/Viewport.cpp src/helper-types/Viewport.h
+    src/raytracing/RayTracing.cpp src/raytracing/RayTracing.h
+    src/helper-types/HasIntersection.h
     )
 
 if (NOT GLUT_FOUND)

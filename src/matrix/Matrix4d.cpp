@@ -108,7 +108,6 @@ Matrix4d Matrix4d::getInverted() const {
     std::cerr << "Matrix to invert was singular!";
     throw std::invalid_argument("Matrix given to invert is singular");
   }
-  std::cout << determinant << " det ";
 
   Matrix4d inverted;
   Matrix4d adj = getAdj();

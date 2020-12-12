@@ -2,32 +2,32 @@
 
 #include <vector>
 
-#include "src/transform-stack/TransformStack.h"
+#include "src/helper-types/Viewport.h"
 #include "src/light/Light.h"
 #include "src/scene.h"
+#include "src/transform-stack/TransformStack.h"
 
 class Context {
-  unsigned width, height;
+  const unsigned width, height;
   std::vector<Light> lights;
   std::vector<std::vector<Color>> colorBuffer;
   TransformStack modelView;
   TransformStack projection;
+  Color bgColor;
 
-  std::vector<HeightMap> heightMaps;
+  const HeightMap *heightMap;
 
-  struct Viewport {
-    int x, y;
-    float w2, h2;
-  };
   Viewport viewport;
 
 public:
   /**
-   * Create context of given width and height
+   * Create context of given width and height with given height map
    * @param width - width of the context
    * @param height - height of the context
+   * @param heightMap - heightmap that should be rendered
+   * @param bgColor - color of the background
    */
-  explicit Context(unsigned width, unsigned height);
+  explicit Context(unsigned int width, unsigned int height, const HeightMap *heightMap, const Color &bgColor);
 
   /**
    * Create context with default width and height (in scene.h)
@@ -40,12 +40,37 @@ public:
    */
   [[nodiscard]] const std::vector<Light> &getLights() const;
 
+  /**
+   * Get color buffer of the context
+   * @return color buffer - matrix of colors
+   */
+  [[nodiscard]] const std::vector<std::vector<Color>> &getColorBuffer() const;
 
   /**
-   * Adds height map to context
-   * @param heightMap
+   * Get Context width
+   * @return width of the context
    */
-  void addHeightMap(const HeightMap &heightMap);
+  [[nodiscard]] unsigned getWidth() const;
+
+  /**
+   * Get context height
+   * @return height of the context
+   */
+  [[nodiscard]] unsigned getHeight() const;
+
+  /**
+   * Get color for background
+   * @return background color
+   */
+  [[nodiscard]] const Color &getBgColor() const;
+
+  /**
+   * Get height map in the context
+   * @return
+   */
+  [[nodiscard]] const HeightMap *getHeightMap() const;
+
+  void setToColorBuffer(unsigned x, unsigned y, const Color &color);
 
   /**
    * Set model-view matrix to look in eye direction
@@ -54,12 +79,6 @@ public:
    * @param up - up vector
    */
   void lookAt(Point3d center, Vector3d eye, Vector3d up);
-
-  /**
-   * Get color buffer of the context
-   * @return color buffer - matrix of colors
-   */
-  [[nodiscard]] const std::vector<std::vector<Color>> &getColorBuffer() const;
 
   /**
    * Ray trace scene

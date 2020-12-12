@@ -1,9 +1,10 @@
 #pragma once
 
 #include <vector>
-#include <src/material/Material.h>
-
 #include "heightmap-reader/HeightMapReader.h"
+#include "src/material/Material.h"
+#include "src/ray/Ray.h"
+#include "src/helper-types/HasIntersection.h"
 #include "src/point/Point3d.h"
 
 /**
@@ -51,4 +52,10 @@ public:
    */
   [[nodiscard]] const Material &getMaterial() const;
 
+  /**
+   * Find intersection between height field and ray
+   * @param ray - investigated ray
+   * @return t parameter of found intersection
+   */
+  [[nodiscard]] HasIntersection findIntersection(const Ray &ray) const;
 };
