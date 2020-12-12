@@ -10,7 +10,9 @@ Context::Context(unsigned int width, unsigned int height, const HeightMap *heigh
   lights(scene::lights) {
   for (auto i = 0; i < height; i++) colorBuffer[i] = std::vector<Color>(width);
 
-  auto h = tan(scene::fov / 2) * scene::zNear, w = h * float(width) / float(height);
+  auto fovRad = (scene::fov / 180.f) * std::numbers::pi;
+  auto h = tan(fovRad / 2) * scene::zNear;
+  auto w = h * float(width) / float(height);
   projection.multiplyTop(Matrix4d::getProjectionMatrix(-w, w, -h, h, scene::zNear, scene::zFar));
 
   lookAt(scene::defaultCenter, scene::defaultEye, scene::defaultUp);
@@ -66,11 +68,10 @@ void Context::rayTrace() {
   auto modelViewProjection = modelView.top();
   auto invertedModelViewProjection = modelViewProjection.getInverted();
 
-  auto viewportProjection = projection.top() * viewport.getViewportMatrix();
+  auto viewportProjection = viewport.getViewportMatrix() * projection.top();
   auto invertedViewportProjection = viewportProjection.getInverted();
 
-  auto invertedMatrix = invertedViewportProjection * invertedModelViewProjection;
-  RayTracing rayTracing(invertedMatrix, invertedModelViewProjection, this);
+  RayTracing rayTracing(invertedModelViewProjection * invertedViewportProjection, invertedModelViewProjection, this);
   rayTracing.computeRayTrace();
 }
 

@@ -78,6 +78,11 @@ float Vector3d::getZ() const {
   return z;
 }
 
+float Vector3d::get(unsigned i) const {
+  float v[] = {x, y, z};
+  return v[i];
+}
+
 float Vector3d::length() const {
   return std::sqrt(x * x + y * y + z * z);
 }

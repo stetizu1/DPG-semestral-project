@@ -18,6 +18,7 @@ const std::vector<Material> scene::materials = {
 };
 
 const std::vector<HeightMap> scene::heightMaps = {
-  HeightMap(HeightMapReader("../data/world.jpg"), 200, 200, 200, materials[0])
+  // debug: Point3d(82, 0, 65), 208, 165, 207
+  HeightMap(HeightMapReader("../data/world.jpg"), Point3d(180, 0, 50), 200, 160, 200, materials[0])
 };
 

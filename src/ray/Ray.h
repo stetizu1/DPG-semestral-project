@@ -19,7 +19,7 @@ public:
   explicit Ray(const Point3d &origin, const Vector3d &direction);
 
   [[nodiscard]] std::string to_string() const;
-  friend std::ostream &operator<<(std::ostream &out, const Point3d &point);
+  friend std::ostream &operator<<(std::ostream &out, const Ray &ray);
 
   /**
    * Get point on parameter t

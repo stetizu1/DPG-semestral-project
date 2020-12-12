@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Illumination.h"
 
-Color Illumination::getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const HasIntersection &intersection) {
+Color Illumination::getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const Intersection &intersection) {
   auto color = Color(0, 0, 0);
   auto intersectPoint = ray.getPointOnParameter(intersection.getT());
   auto normal = intersection.getNormal();

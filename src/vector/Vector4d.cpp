@@ -47,7 +47,7 @@ Point3d Vector4d::divideByW() const {
 Vector3d Vector4d::ignoreW() const {
   return Vector3d(x, y, z);
 }
-float Vector4d::get(int i) const {
+float Vector4d::get(unsigned i) const {
   float v[4] = {x, y, z, w};
   return v[i];
 }

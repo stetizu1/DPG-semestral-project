@@ -48,6 +48,45 @@ public:
   friend std::ostream &operator<<(std::ostream &out, const Point3d &point);
 
   /**
+   * Get x coordinate of the point
+   * @return x coordinate
+   */
+  [[nodiscard]] float getX() const;
+
+  /**
+   * Get y coordinate of the point
+   * @return y coordinate
+   */
+  [[nodiscard]] float getY() const;
+
+  /**
+   * Get z coordinate of the point
+   * @return z coordinate
+   */
+  [[nodiscard]] float getZ() const;
+
+  /**
+   * Get i-th coordinate of the point, for example y for i = 1.
+   * @param i number of parameter in list [x, y, z]
+   * @return x, y or z
+   */
+  [[nodiscard]] float get(unsigned i) const;
+
+  /**
+   * Get minimal coordinates in x, y and z separately from this and other point
+   * @param other - other point
+   * @return minimal coordinates in x, y and z
+   */
+  [[nodiscard]] Point3d minimalCoords(Point3d &other) const;
+
+  /**
+   * Get maximal coordinates in x, y and z separately from this and other point
+   * @param other - other point
+   * @return maximal coordinates in x, y and z
+   */
+  [[nodiscard]] Point3d maximalCoords(Point3d &other) const;
+
+  /**
    * Get vector between this and other point
    * @return 3d vector between this and other point
    */

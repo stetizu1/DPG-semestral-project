@@ -1,8 +1,37 @@
 #include "HeightMap.h"
 
+bool HeightMap::findIntersectionInAxis(unsigned d, const Vector3d &minToOrigin, const Vector3d &maxToOrigin, Vector3d &direction, float &tLow, float &tHigh) {
+  float tDimLow = minToOrigin.get(d) / direction.get(d);
+  float tDimHigh = maxToOrigin.get(d) / direction.get(d);
 
-HeightMap::HeightMap(const HeightMapReader &reader, unsigned width, unsigned height, unsigned depth, const Material &material)
-  : height(height), width(width), depth(depth), material(material) {
+  if (tDimHigh < tDimLow) std::swap(tDimHigh, tDimLow);
+  if (tDimHigh < tLow || tDimLow > tHigh) return false;
+
+  tLow = std::max(tDimLow, tLow);
+  tHigh = std::min(tDimHigh, tHigh);
+  if (tLow > tHigh) return false;
+
+  return true;
+}
+
+bool HeightMap::hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, float &tHigh) const {
+  tLow = 0.f;
+  tHigh = std::numeric_limits<float>::infinity();
+  auto minToOrigin = aabbMin.getVectorBetween(ray.getOrigin());
+  auto maxToOrigin = aabbMax.getVectorBetween(ray.getOrigin());
+
+  auto dir = ray.getDirection();
+  if (!findIntersectionInAxis(0, minToOrigin, maxToOrigin, dir, tLow, tHigh)
+    || !findIntersectionInAxis(1, minToOrigin, maxToOrigin, dir, tLow, tHigh)
+    || !findIntersectionInAxis(2, minToOrigin, maxToOrigin, dir, tLow, tHigh)) {
+    return false;
+  }
+
+  return true;
+}
+
+HeightMap::HeightMap(const HeightMapReader &reader, const Point3d &position, unsigned width, unsigned height, unsigned depth, const Material &material)
+  : position(position), height(height), width(width), depth(depth), material(material) {
   auto imgHeight = reader.getImageHeight(), imgWidth = reader.getImageWidth();
   map = std::vector<std::vector<Cell>>(imgHeight - 1);
   for (auto row = 0; row < imgHeight - 1; row++) {
@@ -20,6 +49,9 @@ HeightMap::HeightMap(const HeightMapReader &reader, unsigned width, unsigned hei
       };
     }
   }
+  auto other = position + Point3d(float(width), float(height), float(depth));
+  aabbMin = position.minimalCoords(other);
+  aabbMax = position.maximalCoords(other);
 }
 
 std::string HeightMap::to_string() const {
@@ -45,10 +77,6 @@ std::ostream &operator<<(std::ostream &out, const HeightMap &h) {
   return out;
 }
 
-void HeightMap::setPosition(Point3d &point3D) {
-  position = point3D;
-}
-
 const Point3d &HeightMap::getPosition() const {
   return position;
 }
@@ -57,25 +85,31 @@ const Material &HeightMap::getMaterial() const {
   return material;
 }
 
-HasIntersection HeightMap::findIntersection(const Ray &ray) const {
+bool HeightMap::findIntersection(const Ray &ray, Intersection &intersection) const {
+  float aabbTLow, aabbTHigh;
+  if (!hasIntersectionWithBoundingBox(ray, aabbTLow, aabbTHigh)) return false;
+  auto from = ray.getPointOnParameter(aabbTLow);
+  auto to = ray.getPointOnParameter(aabbTHigh);
   // todo
-  // find intersection with bounding box of the height map
-    // if there is none, return t
   // find sequence of cells
   // find if there is intersection with bounding box of the cell (min ray height < max cell height)
-    // if there is none, continue
-    // if there is, find intersection with triangles, if there is, return, else continue in sequence
+  // if there is none, continue
+  // if there is, find intersection with triangles, if there is, return, else continue in sequence
+
+
+  // todo delete
+  Vector3d norm;
+  //get normal
+  if(from.getX() == 180.f) norm = Vector3d(-1, 0, 0);
+  if(from.getX() == 380.f) norm = Vector3d(1, 0, 0);
+  if(from.getY() == 0.f) norm = Vector3d(0, -1, 0);
+  if(from.getY() == 160.f) norm = Vector3d(0, 1, 0);
+  if(from.getZ() == 250) norm = Vector3d(0, 0, -1);
+  if(from.getZ() == 50) norm = Vector3d(0, 0, 1);
 
 
 
-
-  // delete this
-  static float counter = 0;
-  counter += 0.01f;
-
-  if(counter < 100) {
-    return HasIntersection::doesNotIntersect();
-  }
-
-  return HasIntersection(counter, Vector3d(counter, counter, counter).normalized());
+  intersection = Intersection(aabbTLow, norm.normalized());
+  return true;
 }
+

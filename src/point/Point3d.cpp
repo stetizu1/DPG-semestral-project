@@ -93,6 +93,31 @@ std::ostream &operator<<(std::ostream &out, const Point3d &point) {
   return out;
 }
 
+float Point3d::getX() const {
+  return x;
+}
+
+float Point3d::getY() const {
+  return y;
+}
+
+float Point3d::getZ() const {
+  return z;
+}
+
+float Point3d::get(unsigned i) const {
+  float p[] = {x, y, z};
+  return p[i];
+}
+
+Point3d Point3d::minimalCoords(Point3d &other) const {
+  return Point3d(std::min(x, other.x), std::min(y, other.y), std::min(z, other.z));
+}
+
+Point3d Point3d::maximalCoords(Point3d &other) const {
+  return Point3d(std::max(x, other.x), std::max(y, other.y), std::max(z, other.z));
+}
+
 Vector3d Point3d::getVectorBetween(const Point3d &other) const {
   return Vector3d(x - other.x, y - other.y, z - other.z);
 }

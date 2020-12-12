@@ -33,7 +33,7 @@ Matrix4d TransformStack::top() const {
 }
 
 void TransformStack::replaceTop(const Matrix4d& matrix) {
-  popMatrix();
+  stack.pop();
   pushMatrix(matrix);
 }
 

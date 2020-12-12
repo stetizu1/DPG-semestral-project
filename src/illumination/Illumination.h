@@ -6,7 +6,7 @@
 #include "src/material/Material.h"
 #include "src/color/Color.h"
 #include "src/ray/Ray.h"
-#include "src/helper-types/HasIntersection.h"
+#include "src/helper-types/Intersection.h"
 
 class Illumination {
 
@@ -19,5 +19,5 @@ public:
    * @param intersection - intersection determined by parameter t and normal
    * @return color at the intersection
    */
-  static Color getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const HasIntersection &t);
+  static Color getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const Intersection &t);
 };

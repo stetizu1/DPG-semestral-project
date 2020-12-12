@@ -19,5 +19,8 @@ public:
    */
   RayTracing(Matrix4d inverseMatrix, Matrix4d inverseModelView, Context *context);
 
-  void computeRayTrace();
+  /**
+   * Computes ray tracing for screen space and saves it to color buffer in given context
+   */
+  void computeRayTrace() const;
 };

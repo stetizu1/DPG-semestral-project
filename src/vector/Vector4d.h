@@ -73,5 +73,5 @@ public:
    * @param i number of parameter in list [x, y, z, w]
    * @return x, y, z or w
    */
-  [[nodiscard]] float get(int i) const;
+  [[nodiscard]] float get(unsigned i) const;
 };

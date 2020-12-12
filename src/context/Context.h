@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <numbers>
 
 #include "src/helper-types/Viewport.h"
 #include "src/light/Light.h"

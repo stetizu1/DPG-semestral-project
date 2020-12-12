@@ -27,14 +27,14 @@ public:
   Vector3d operator-=(const Vector3d &other);
 
   Vector3d operator*(float k) const;
-  friend Vector3d operator*(float k, const Vector3d &point);
+  friend Vector3d operator*(float k, const Vector3d &vector);
   Vector3d operator*=(float k);
 
   Vector3d operator/(float k) const;
   Vector3d operator/=(float k);
 
   [[nodiscard]] std::string to_string() const;
-  friend std::ostream &operator<<(std::ostream &out, const Vector3d &point);
+  friend std::ostream &operator<<(std::ostream &out, const Vector3d &vector);
 
   friend Vector3d operator-(const Vector3d &vector);
 
@@ -55,6 +55,13 @@ public:
    * @return z
    */
   [[nodiscard]] float getZ() const;
+
+  /**
+   * Get i-th parameter of the vector, for example y for i = 1.
+   * @param i number of parameter in list [x, y, z]
+   * @return x, y or z
+   */
+  [[nodiscard]] float get(unsigned i) const;
 
   /**
    * Compute length of the vector.
