@@ -1,7 +1,10 @@
 #pragma once
 
-#include <src/matrix/Matrix4d.h>
+#include "src/matrix/Matrix4d.h"
 
+/**
+ * Class to store viewport and getting viewport matrix
+ */
 class Viewport {
   int x, y;
   float fx, fy;

@@ -8,6 +8,12 @@
 #include "src/scene.h"
 #include "src/transform-stack/TransformStack.h"
 
+/**
+ * Context storage
+ *
+ * Stores basic model and view data as color buffer for the image
+ * Provides operation for rendering (lookAt, raytrace) and getting context data
+ */
 class Context {
   const unsigned width, height;
   std::vector<Light> lights;

@@ -6,7 +6,7 @@
 #include "src/vector/Vector3d.h"
 
 /**
- * Type of 3D point
+ * Type for 3D point
  *
  * Provides basic meaningful operation (+, -, *, /) for point and between point and vector (moving point on vector)
  */

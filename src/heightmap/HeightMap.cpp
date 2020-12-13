@@ -37,16 +37,20 @@ HeightMap::HeightMap(const HeightMapReader &reader, const Point3d &position, uns
   for (auto row = 0; row < imgHeight - 1; row++) {
     map[row] = std::vector<Cell>(imgWidth - 1);
     for (auto col = 0; col < imgWidth - 1; col++) {
+      auto h = float(height);
+      auto y = position.getY();
       float values[] = {
-        reader.getIntensityAt(row, col),
-        reader.getIntensityAt(row, col + 1),
-        reader.getIntensityAt(row + 1, col),
-        reader.getIntensityAt(row + 1, col + 1)
+        reader.getIntensityAt(row, col) * h + y,
+        reader.getIntensityAt(row, col + 1) * h + y,
+        reader.getIntensityAt(row + 1, col) * h + y,
+        reader.getIntensityAt(row + 1, col + 1) * h + y
       };
-      map[row][col] = {
-        values[0], values[1], values[2], values[3],
-        std::max(std::max(values[0], values[1]), std::max(values[2], values[3]))
-      };
+      auto xWidth = float(width) / float(imgWidth - 1);
+      auto zDepth = float(depth) / float(imgHeight - 1);
+
+      auto xPos = position.getX() + xWidth * col;
+      auto zPos = position.getZ() + zDepth * row;
+      map[row][col] = Cell(values[0], values[1], values[2], values[3], xPos, zPos, xWidth, zDepth);
     }
   }
   auto other = position + Point3d(float(width), float(height), float(depth));
@@ -60,16 +64,11 @@ std::string HeightMap::to_string() const {
   for (const auto &row : map) {
     s += "  ";
     for (const auto &val : row) {
-      s += "{"
-        + std::to_string(val.topLeft).substr(0, 4) + ","
-        + std::to_string(val.topRight).substr(0, 4) + ","
-        + std::to_string(val.bottomLeft).substr(0, 4) + ","
-        + std::to_string(val.bottomRight).substr(0, 4) + " --> "
-        + std::to_string(val.maxHeight).substr(0, 4) + "} ";
+      s += val.to_string() + " ";
     }
     s += "\r\n";
   }
-  s += ") with parameters (height, width, depth) set to " + H;
+  s += ") with parameters (height, width, depth) set to (" + W + ", " + D + ", " + H + ") on position " + position.to_string();
   return s;
 }
 std::ostream &operator<<(std::ostream &out, const HeightMap &h) {
@@ -98,18 +97,23 @@ bool HeightMap::findIntersection(const Ray &ray, Intersection &intersection) con
 
 
   // todo delete
-  Vector3d norm;
-  //get normal
-  if(from.getX() == 180.f) norm = Vector3d(-1, 0, 0);
-  if(from.getX() == 380.f) norm = Vector3d(1, 0, 0);
-  if(from.getY() == 0.f) norm = Vector3d(0, -1, 0);
-  if(from.getY() == 160.f) norm = Vector3d(0, 1, 0);
-  if(from.getZ() == 250) norm = Vector3d(0, 0, -1);
-  if(from.getZ() == 50) norm = Vector3d(0, 0, 1);
+//  Vector3d norm;
+//  if(from.getX() == 180.f) norm = Vector3d(-1, 0, 0);
+//  if(from.getX() == 380.f) norm = Vector3d(1, 0, 0);
+//  if(from.getY() == 0.f) norm = Vector3d(0, -1, 0);
+//  if(from.getY() == 160.f) norm = Vector3d(0, 1, 0);
+//  if(from.getZ() == 250) norm = Vector3d(0, 0, -1);
+//  if(from.getZ() == 50) norm = Vector3d(0, 0, 1);
+//  intersection = Intersection(aabbTLow, norm);
+//  return true;
 
-
-
-  intersection = Intersection(aabbTLow, norm.normalized());
-  return true;
+  for (const auto &row : map) {
+    for (auto col : row) {
+      if (col.findIntersection(ray, intersection)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 

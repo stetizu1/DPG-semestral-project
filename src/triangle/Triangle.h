@@ -1,8 +1,13 @@
 #pragma once
 
-#include <src/point/Point3d.h>
-#include <src/ray/Ray.h>
+#include "src/point/Point3d.h"
+#include "src/ray/Ray.h"
 
+/**
+ * Type for triangles
+ *
+ * Provides function to find intersection between triangle and ray
+ */
 class Triangle {
   Point3d basePoint;
   Vector3d vectors[2];

@@ -5,6 +5,9 @@
 #include "src/vector/Vector4d.h"
 #include "src/ray/Ray.h"
 
+/**
+ * Class for computing ray tracing for the screen
+ */
 class RayTracing {
   Matrix4d inverseMatrix;
   Matrix4d inverseModelView;

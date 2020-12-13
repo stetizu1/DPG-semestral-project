@@ -3,6 +3,12 @@
 #include <ostream>
 #include <string>
 
+/**
+ * Type for 3D vector
+ *
+ * Provides basic meaningful operation (+, -, *, /) for vector
+ * Provides vector-specific operations as getting length, normalization, dot product and cross product between vectors
+ */
 class Vector3d {
   float x, y, z;
 

@@ -8,8 +8,10 @@
 #include "src/ray/Ray.h"
 #include "src/helper-types/Intersection.h"
 
+/**
+ * Class to work with illumination
+ */
 class Illumination {
-
 public:
   /**
    * Get direct phong illumination at ray-triangle intersection

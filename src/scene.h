@@ -7,7 +7,9 @@
 #include "src/heightmap/HeightMap.h"
 #include "light/Light.h"
 
-
+/**
+ * Description of the scene
+ */
 struct scene {
   /**
    * Default width of the window

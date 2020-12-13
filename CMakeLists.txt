@@ -36,6 +36,7 @@ add_executable(${NAME}
     src/helper-types/Viewport.cpp src/helper-types/Viewport.h
     src/raytracing/RayTracing.cpp src/raytracing/RayTracing.h
     src/helper-types/Intersection.h
+    src/cell/Cell.cpp src/cell/Cell.h
     )
 
 if (NOT GLUT_FOUND)

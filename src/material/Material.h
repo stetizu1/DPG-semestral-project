@@ -2,6 +2,9 @@
 
 #include "src/color/Color.h"
 
+/**
+ * Type for storing the material values
+ */
 class Material {
   Color color;
   float kd;

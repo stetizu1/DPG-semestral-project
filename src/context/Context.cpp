@@ -6,7 +6,7 @@ Context::Context(unsigned int width, unsigned int height, const HeightMap *heigh
   : width(width), height(height), colorBuffer(height),
   heightMap(heightMap),
   bgColor(bgColor),
-  viewport{0, 0, float(width) / 2.f, float(height) / 2.f},
+  viewport(0, 0, float(width) / 2.f, float(height) / 2.f),
   lights(scene::lights) {
   for (auto i = 0; i < height; i++) colorBuffer[i] = std::vector<Color>(width);
 

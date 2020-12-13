@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "src/cell/Cell.h"
 #include "heightmap-reader/HeightMapReader.h"
 #include "src/material/Material.h"
 #include "src/ray/Ray.h"
@@ -9,12 +10,10 @@
 
 /**
  * Class to store height map, that was read by HeightMapReader
+ *
+ * Provides height map data and functions for finding ray-heightmap intersections
  */
 class HeightMap {
-  struct Cell {
-    float topLeft, topRight, bottomLeft, bottomRight;
-    float maxHeight;
-  };
   std::vector<std::vector<Cell>> map;
   const unsigned height, width, depth;
   const Point3d position;

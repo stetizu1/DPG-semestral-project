@@ -4,6 +4,12 @@
 #include "src/point/Point3d.h"
 #include "Vector3d.h"
 
+/**
+ * Type for 4D vector (point)
+ *
+ * Provides basic meaningful operation (+, -, *, /) for 4d vectors
+ * Provides operation to transform to 3d point by dividing by w or to 3d vector by ignoring w
+ */
 class Vector4d {
   float x, y, z, w;
 

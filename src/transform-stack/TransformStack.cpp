@@ -1,5 +1,10 @@
 #include "TransformStack.h"
 
+void TransformStack::replaceTop(const Matrix4d& matrix) {
+  stack.pop();
+  stack.emplace(matrix);
+}
+
 TransformStack::TransformStack() {
   stack.push(Matrix4d::getIdentityMatrix());
 }
@@ -17,24 +22,8 @@ std::ostream &operator<<(std::ostream &out, const TransformStack &transformStack
   return out;
 }
 
-void TransformStack::pushMatrix(const Matrix4d &matrix) {
-  stack.emplace(matrix);
-}
-
-void TransformStack::popMatrix() {
-  stack.pop();
-  if (stack.empty()) {
-    stack.emplace(Matrix4d::getIdentityMatrix());
-  }
-}
-
 Matrix4d TransformStack::top() const {
   return stack.top();
-}
-
-void TransformStack::replaceTop(const Matrix4d& matrix) {
-  stack.pop();
-  pushMatrix(matrix);
 }
 
 void TransformStack::multiplyTop(const Matrix4d &matrix) {
