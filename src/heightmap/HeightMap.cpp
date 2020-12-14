@@ -47,6 +47,7 @@ bool HeightMap::checkRunX(unsigned xFrom, unsigned xTo, unsigned currZ, float in
     if (col.findIntersection(ray, intersection, rayMinY)) {
       return true;
     }
+    // prevent rounding error
     if (currZ + sign < getMapHeight() && currZ + sign >= 0) {
       col = map[currZ + sign][x];
       if (col.findIntersection(ray, intersection, rayMinY)) {
@@ -64,6 +65,7 @@ bool HeightMap::checkRunZ(unsigned zFrom, unsigned zTo, unsigned currX, float in
     if (col.findIntersection(ray, intersection, rayMinY)) {
       return true;
     }
+    // prevent rounding error
     if (currX + sign < getMapHeight() && currX + sign >= 0) {
       col = map[z][currX + sign];
       if (col.findIntersection(ray, intersection, rayMinY)) {
