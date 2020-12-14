@@ -57,7 +57,9 @@ class HeightMap {
    */
   [[nodiscard]] bool hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, float &tHigh) const;
 
-  [[nodiscard]] bool checkRun(unsigned xFrom, unsigned xTo, unsigned currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection) const;
+  [[nodiscard]] bool checkRunX(unsigned xFrom, unsigned xTo, unsigned currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const;
+
+  [[nodiscard]] bool checkRunZ(unsigned zFrom, unsigned zTo, unsigned currX, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const;
 
   /**
    * Check intersection in straight lines

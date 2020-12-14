@@ -40,21 +40,37 @@ bool HeightMap::hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, floa
   return true;
 }
 
-bool HeightMap::checkRun(unsigned int xFrom, unsigned int xTo, unsigned int currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection) const {
+bool HeightMap::checkRunX(unsigned xFrom, unsigned xTo, unsigned currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const {
   float rayMinY = std::min(initY + slopeY * float(xFrom) * widthRatio, initY + slopeY * float(xTo) * widthRatio);
   for (auto x = xFrom; x <= xTo; x++) {
     auto col = map[currZ][x];
     if (col.findIntersection(ray, intersection, rayMinY)) {
       return true;
     }
-    if (currZ + 1 < getMapHeight()) {
-      col = map[currZ + 1][x];
+    if (currZ + sign < getMapHeight() && currZ + sign >= 0) {
+      col = map[currZ + sign][x];
       if (col.findIntersection(ray, intersection, rayMinY)) {
         return true;
       }
     }
   }
+  return false;
+}
 
+bool HeightMap::checkRunZ(unsigned zFrom, unsigned zTo, unsigned currX, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const {
+  float rayMinY = std::min(initY + slopeY * float(zFrom) * depthRatio, initY + slopeY * float(zTo) * depthRatio);
+  for (auto z = zFrom; z <= zTo; z++) {
+    auto col = map[z][currX];
+    if (col.findIntersection(ray, intersection, rayMinY)) {
+      return true;
+    }
+    if (currX + sign < getMapHeight() && currX + sign >= 0) {
+      col = map[z][currX + sign];
+      if (col.findIntersection(ray, intersection, rayMinY)) {
+        return true;
+      }
+    }
+  }
   return false;
 }
 
@@ -67,12 +83,14 @@ bool HeightMap::checkIntersectionLine(const Point3d &from, const Ray &ray, Inter
     auto alpha = ray.getDirection().getZ() / ray.getDirection().getX();
     auto slopeY = ray.getDirection().getY() / ray.getDirection().getX();
 
-
-    if (alpha >= 0 && alpha <= 1) {
+    if (alpha >= -1 && alpha <= 1) {
+      auto diff = (alpha < 0) ? -1 : 1;
+      b0 = (alpha <= 0) ? 1 - b0 : b0;
+      alpha = std::abs(alpha);
       auto runLengthShort = int(std::floor(1 / alpha));
       auto runLengthLong = int(std::ceil(1 / alpha));
       if (runLengthShort >= getMapWidth()) {
-        return checkRun(0, getMapWidth() - 1, gridIntFrom.getZ(), from.getY(), slopeY, ray, intersection);
+        return checkRunX(0, getMapWidth() - 1, gridIntFrom.getZ(), from.getY(), slopeY, ray, intersection, diff);
       }
       float v = 1 - alpha * runLengthShort;
       unsigned runLength;
@@ -87,14 +105,60 @@ bool HeightMap::checkIntersectionLine(const Point3d &from, const Ray &ray, Inter
       }
       unsigned currX = 0, currZ = gridIntFrom.getZ();
       float currB = b0;
-      while (currX < getMapWidth() && currZ < getMapHeight()) {
+      while (currX < getMapWidth() && currZ < getMapHeight() && currZ >= 0) {
         auto xFrom = (currX > 0 && currB > 0) ? currX - 1 : currX;
         auto xTo = std::min(currX + runLength, getMapWidth() - 1);
-        if (checkRun(xFrom, xTo, currZ, from.getY(), slopeY, ray, intersection)) {
+        if (checkRunX(xFrom, xTo, currZ, from.getY(), slopeY, ray, intersection, diff)) {
           return true;
         }
         currX += runLength;
-        currZ++;
+        currZ += diff;
+        if (truncated) {
+          truncated = false;
+          currB = currB + alpha * float(runLengthShort) - 1;
+        } else {
+          currB = currB + alpha * float(runLength) - 1;
+        }
+        runLength = currB < v ? runLengthLong : runLengthShort;
+      }
+    }
+  }
+
+  if (gridIntFrom.getZ() == 0) {
+    auto b0 = gridFrom.getX() - float(gridIntFrom.getX());
+    auto alpha = ray.getDirection().getX() / ray.getDirection().getZ();
+    auto slopeY = ray.getDirection().getY() / ray.getDirection().getZ();
+
+    if (alpha >= -1 && alpha <= 1) {
+      auto diff = (alpha <= 0) ? -1 : 1;
+      b0 = (alpha <= 0) ? 1 - b0 : b0;
+      alpha = std::abs(alpha);
+      auto runLengthShort = int(std::floor(1 / alpha));
+      auto runLengthLong = int(std::ceil(1 / alpha));
+      if (runLengthShort >= getMapHeight()) {
+        return checkRunZ(0, getMapHeight() - 1, gridIntFrom.getX(), from.getY(), slopeY, ray, intersection, diff);
+      }
+      float v = 1 - alpha * runLengthShort;
+      unsigned runLength;
+      bool truncated = false;
+      if (alpha < 0.5f && b0 >= alpha + v) { // truncated initial run
+        auto dr = int(std::floor((b0 - v) / alpha));
+        b0 = b0 - (v + dr * alpha);
+        truncated = true;
+        runLength = runLengthShort - dr;
+      } else {
+        runLength = (b0 < v) ? runLengthLong : runLengthShort;
+      }
+      unsigned currZ = 0, currX = gridIntFrom.getX();
+      float currB = b0;
+      while (currZ < getMapWidth() && currX < getMapWidth() && currX >= 0) {
+        auto zFrom = (currZ > 0 && currB > 0) ? currZ - 1 : currZ;
+        auto zTo = std::min(currZ + runLength, getMapHeight() - 1);
+        if (checkRunZ(zFrom, zTo, currX, from.getY(), slopeY, ray, intersection, diff)) {
+          return true;
+        }
+        currZ += runLength;
+        currX += diff;
         if (truncated) {
           truncated = false;
           currB = currB + alpha * float(runLengthShort) - 1;
