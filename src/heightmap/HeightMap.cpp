@@ -40,37 +40,36 @@ bool HeightMap::hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, floa
   return true;
 }
 
-bool HeightMap::checkRunX(int xFrom, int xTo, int currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const {
+bool HeightMap::checkRunX(int xFrom, int xTo, int currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection) const {
   float rayMinY = std::min(initY + slopeY * float(xFrom) * widthRatio, initY + slopeY * float(xTo) * widthRatio);
   for (auto x = xFrom; x <= xTo; x++) {
-    auto col = map[currZ][x];
-    if (col.findIntersection(ray, intersection, rayMinY)) {
-      return true;
-    }
-    // prevent rounding error
-    if (currZ + sign < getMapHeight() && currZ + sign >= 0) {
-      col = map[currZ + sign][x];
-      if (col.findIntersection(ray, intersection, rayMinY)) {
-        return true;
+    // prevent rounding error by trying adjacent columns (currZ - 1, currZ, currZ + 1)
+    int shifts[] = {0, -1, 1};
+    for (auto shiftIndex = 0; shiftIndex <= 2; shiftIndex++) {
+      auto shift = shifts[shiftIndex];
+      if (currZ + shift < getMapHeight() && currZ + shift >= 0) {
+        auto col = map[currZ + shift][x];
+        if (col.findIntersection(ray, intersection, rayMinY)) {
+          return true;
+        }
       }
     }
   }
   return false;
 }
 
-bool HeightMap::checkRunZ(int zFrom, int zTo, int currX, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const {
+bool HeightMap::checkRunZ(int zFrom, int zTo, int currX, float initY, float slopeY, const Ray &ray, Intersection &intersection) const {
   float rayMinY = std::min(initY + slopeY * float(zFrom) * depthRatio, initY + slopeY * float(zTo) * depthRatio);
-  zTo = std::min(int(zTo), int(getMapHeight()) - 1);
   for (auto z = zFrom; z <= zTo; z++) {
-    auto col = map[z][currX];
-    if (col.findIntersection(ray, intersection, rayMinY)) {
-      return true;
-    }
-    // prevent rounding error
-    if (currX + sign < getMapWidth() && currX + sign >= 0) {
-      col = map[z][currX + sign];
-      if (col.findIntersection(ray, intersection, rayMinY)) {
-        return true;
+    // prevent rounding error by trying adjacent columns (currZ - 1, currZ, currZ + 1)
+    int shifts[] = {0, -1, 1};
+    for (auto shiftIndex = 0; shiftIndex <= 2; shiftIndex++) {
+      auto shift = shifts[shiftIndex];
+      if (currX + shift < getMapWidth() && currX + shift >= 0) {
+        auto col = map[z][currX + shift];
+        if (col.findIntersection(ray, intersection, rayMinY)) {
+          return true;
+        }
       }
     }
   }
@@ -97,7 +96,7 @@ bool HeightMap::checkIntersectionLine(const Point3d &from, const Ray &ray, Inter
     auto runLengthShort = int(std::floor(1 / slope));
     auto runLengthLong = int(std::ceil(1 / slope));
     if (runLengthShort >= getMapWidth()) {
-      return checkRunX(0, int(getMapWidth()) - 1, x, realY, slopeXY, ray, intersection, slopeSign);
+      return checkRunX(0, int(getMapWidth()) - 1, z, realY, slopeXY, ray, intersection);
     }
     float v = 1 - slope * runLengthShort;
     int runLength;
@@ -115,7 +114,7 @@ bool HeightMap::checkIntersectionLine(const Point3d &from, const Ray &ray, Inter
     while (currX < getMapWidth() && currZ < getMapHeight() && currZ >= 0) {
       auto xFrom = (currX > 0 && currB > 0) ? currX - 1 : currX;
       auto xTo = std::min(currX + runLength, int(getMapWidth()) - 1);
-      if (checkRunX(xFrom, xTo, currZ, realY, slopeXY, ray, intersection, slopeSign)) {
+      if (checkRunX(xFrom, xTo, currZ, realY, slopeXY, ray, intersection)) {
         return true;
       }
       currX += runLength;
@@ -139,7 +138,7 @@ bool HeightMap::checkIntersectionLine(const Point3d &from, const Ray &ray, Inter
     auto runLengthShort = int(std::floor(1 / alpha));
     auto runLengthLong = int(std::ceil(1 / alpha));
     if (runLengthShort >= getMapHeight()) {
-      return checkRunZ(0, int(getMapHeight()) - 1, x, realY, slopeZY, ray, intersection, slopeSign);
+      return checkRunZ(0, int(getMapHeight()) - 1, x, realY, slopeZY, ray, intersection);
     }
     float v = 1 - alpha * runLengthShort;
     int runLength;
@@ -154,10 +153,10 @@ bool HeightMap::checkIntersectionLine(const Point3d &from, const Ray &ray, Inter
     }
     int currZ = 0, currX = x;
     float currB = b0;
-    while (currZ < getMapWidth() && currX < getMapWidth() && currX >= 0) {
+    while (currZ < getMapHeight() && currX < getMapWidth() && currX >= 0) {
       auto zFrom = (currZ > 0 && currB > 0) ? currZ - 1 : currZ;
-      auto zTo = currZ + std::min(runLength, int(getMapHeight()) - 1);
-      if (checkRunZ(zFrom, zTo, currX, realY, slopeZY, ray, intersection, slopeSign)) {
+      auto zTo = std::min(currZ + runLength, int(getMapHeight()) - 1);
+      if (checkRunZ(zFrom, zTo, currX, realY, slopeZY, ray, intersection)) {
         return true;
       }
 
