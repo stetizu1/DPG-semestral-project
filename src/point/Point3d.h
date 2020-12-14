@@ -14,7 +14,11 @@ class Point3d {
   float x, y, z;
 
 public:
+  /**
+   * Create point in coordinates origin
+   */
   explicit Point3d();
+
   /**
    * Create point with provided x, y, z coordinates.
    * @param x - x coordinate

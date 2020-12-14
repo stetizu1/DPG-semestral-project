@@ -7,6 +7,8 @@
 #include "src/ray/Ray.h"
 #include "src/helper-types/Intersection.h"
 #include "src/point/Point3d.h"
+#include "src/point/Point2d.h"
+#include "src/point/Point2i.h"
 
 /**
  * Class to store height map, that was read by HeightMapReader
@@ -16,6 +18,7 @@
 class HeightMap {
   std::vector<std::vector<Cell>> map;
   const unsigned height, width, depth;
+  const float widthRatio, depthRatio;
   const Point3d position;
   const Material material;
 
@@ -32,7 +35,18 @@ class HeightMap {
    * @param tHigh - current found tHigh
    * @return true if intersection exists in given dimension
    */
-  [[nodiscard]] static bool findIntersectionInAxis(unsigned d, const Vector3d &minToOrigin, const Vector3d &maxToOrigin, Vector3d &direction, float &tLow, float &tHigh) ;
+  [[nodiscard]] static bool findIntersectionInAxis(unsigned d, const Vector3d &minToOrigin, const Vector3d &maxToOrigin, const Vector3d &direction, float &tLow, float &tHigh);
+
+  /**
+   * Find intersection in y axis, returns if there is any
+   * @param minToOrigin - vector from AABB-min to ray origin
+   * @param maxToOrigin - vector from AABB-max to ray origin
+   * @param direction - direction of the ray
+   * @param tLow - current found tLow
+   * @param tHigh - current found tHigh
+   * @return true if intersection exist in y dimension
+   */
+  static bool findIntersectionInYAxis(const Vector3d &minToOrigin, const Vector3d &maxToOrigin, const Vector3d &direction, float tLow, float tHigh);
 
   /**
    * Find t low and t high between AABB of the height map and ray
@@ -42,6 +56,17 @@ class HeightMap {
    * @return true if intersection exists
    */
   [[nodiscard]] bool hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, float &tHigh) const;
+
+  [[nodiscard]] bool checkRun(unsigned xFrom, unsigned xTo, unsigned currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection) const;
+
+  /**
+   * Check intersection in straight lines
+   * @param from - point from which we traverse height map
+   * @param ray - investigated ray
+   * @param intersection - struct to store intersection if found
+   * @return true if intersection is found
+   */
+  [[nodiscard]] bool checkIntersectionLine(const Point3d &from, const Ray &ray, Intersection &intersection) const;
 
 public:
   /**
@@ -59,6 +84,37 @@ public:
   friend std::ostream &operator<<(std::ostream &out, const HeightMap &h);
 
   /**
+   * Get coordinate height of the map (rows)
+   * @return height of map matrix
+   */
+  [[nodiscard]] unsigned getMapHeight() const;
+
+  /**
+   * Get coordinate width of the map (columns)
+   * @return width of the matrix
+   */
+  [[nodiscard]] unsigned getMapWidth() const;
+
+  /**
+   * Get coordinates in the map grid (rows and columns)
+   * @return 2d coordinate point
+   */
+  [[nodiscard]] Point2d getBaseCoordinates(const Point3d &position) const;
+
+  /**
+   * Get rounded coordinates in the map grid (rows and columns indices)
+   * @return 2d coordinate for height map
+   */
+  [[nodiscard]] Point2i getIntBaseCoordinates(const Point3d &position) const;
+
+  /**
+   * Get cell on given position
+   * @param position - searched position
+   * @return Cell on given position
+   */
+  [[nodiscard]] Cell getCellOnPosition(const Point3d &position) const;
+
+  /**
    * Get coordinates of the heightmap
    * @return 3d point representing coordinates
    */
@@ -70,11 +126,11 @@ public:
    */
   [[nodiscard]] const Material &getMaterial() const;
 
-   /**
-    * Find intersection between ray and this height map
-    * @param ray - investigated ray
-    * @param intersection - intersection, stays unchanged if none found
-    * @return true if intersection is found
-    */
+  /**
+   * Find intersection between ray and this height map
+   * @param ray - investigated ray
+   * @param intersection - intersection, stays unchanged if none found
+   * @return true if intersection is found
+   */
   [[nodiscard]] bool findIntersection(const Ray &ray, Intersection &intersection) const;
 };

@@ -32,7 +32,8 @@ float Cell::getMaxHeight() const {
   return maxHeight;
 }
 
-bool Cell::findIntersection(const Ray &ray, Intersection &intersection) {
+bool Cell::findIntersection(const Ray &ray, Intersection &intersection, float minHeight) {
+  if (minHeight > maxHeight) return false;
   float t;
   auto isWithFirst = triangles[0].getIntersection(ray, t);
   if (isWithFirst) {

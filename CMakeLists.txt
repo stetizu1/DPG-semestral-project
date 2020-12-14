@@ -37,6 +37,8 @@ add_executable(${NAME}
     src/raytracing/RayTracing.cpp src/raytracing/RayTracing.h
     src/helper-types/Intersection.h
     src/cell/Cell.cpp src/cell/Cell.h
+    src/point/Point2d.cpp src/point/Point2d.h
+    src/point/Point2i.cpp src/point/Point2i.h
     )
 
 if (NOT GLUT_FOUND)

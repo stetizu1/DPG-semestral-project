@@ -46,7 +46,8 @@ public:
    * Find if there is an intersection between ray and the cell and store it if there is
    * @param ray - investigated ray
    * @param intersection - value where we store intersection if any is found
+   * @param minHeight - minimal ray height in the bounding box
    * @return true if intersection is found
    */
-  bool findIntersection(const Ray &ray, Intersection &intersection);
+  bool findIntersection(const Ray &ray, Intersection &intersection, float minHeight = -std::numeric_limits<float>::infinity());
 };
