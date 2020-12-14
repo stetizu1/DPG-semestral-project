@@ -7,7 +7,7 @@ Context::Context(unsigned int width, unsigned int height, const HeightMap *heigh
   heightMap(heightMap),
   bgColor(bgColor),
   viewport(0, 0, float(width) / 2.f, float(height) / 2.f),
-  lights(scene::lights) {
+  lights{scene::lights[scene::sceneNumber]} {
   for (auto i = 0; i < height; i++) colorBuffer[i] = std::vector<Color>(width);
 
   auto fovRad = (scene::fov / 180.f) * std::numbers::pi;
@@ -15,11 +15,11 @@ Context::Context(unsigned int width, unsigned int height, const HeightMap *heigh
   auto w = h * float(width) / float(height);
   projection.multiplyTop(Matrix4d::getProjectionMatrix(-w, w, -h, h, scene::zNear, scene::zFar));
 
-  lookAt(scene::defaultCenter, scene::defaultEye, scene::defaultUp);
+  lookAt(scene::defaultCenter[scene::sceneNumber], scene::defaultEye[scene::sceneNumber], scene::defaultUp);
   rayTrace();
 }
 
-Context::Context() : Context(scene::defaultWidth, scene::defaultHeight, &scene::heightMaps[0], scene::defaultBgColor) {}
+Context::Context() : Context(scene::defaultWidth, scene::defaultHeight, &scene::heightMaps[scene::sceneNumber], scene::defaultBgColor) {}
 
 const std::vector<Light> &Context::getLights() const {
   return lights;
