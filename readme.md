@@ -1,10 +1,18 @@
-# Ray Tracing Of Height Fields
+# Ray Tracing výškových polí
+
+Cílem této práce bylo implementovat algoritmus, který prochází paprsek promítnutý na 2D mřížku výškového pole, a hledá průsečík s tímto polem. Tento algoritmus používá výpočty délky úseků a je inspirován paperem https://www.researchgate.net/publication/220979067_Accelerating_the_ray_tracing_of_height_fields
+
+Semestrální práce se zabývá procházením paprsků v mřížce pomocí digitalizace přímky rozšířené na 4-spojité okolí. Používá se metoda úseků. Ty se určují pomocí směrnice přímky a jejich posunutí pomocí vstupního posunu. Poté se následující délka úseku přímky určí pomocí předchozího posunu a směrnice. V těchto úsecích následně hledáme pomocí výšky a aproximace za použití dvou trojúhelníků na buňku průsečík.
 
 
-The program is written for Windows 10.
+Program byl napsán pro Windows 10
 
-Inspired by: Accelerating the Ray Tracing of height fields https://www.researchgate.net/publication/220979067_Accelerating_the_ray_tracing_of_height_fields
+Použitá literatura: 
+* Accelerating the Ray Tracing of height fields https://www.researchgate.net/publication/220979067_Accelerating_the_ray_tracing_of_height_fields
 
-Author: Zuzana Štětinová, stetizu1@fel.cvut.cz
+Author:
+Zuzana Štětinová, stetizu1@fel.cvut.cz
 
-Subject: Data Structures for Computer Graphics
+Předmět: Datové struktury pro počítačovou grafiku
+
+Datum ukončení projektu: 14. 12. 2020
