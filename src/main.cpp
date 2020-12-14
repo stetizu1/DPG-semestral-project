@@ -54,11 +54,9 @@ void onKeys(unsigned char key, int x, int y) {
 int main(int argc, char **argv) {
   if (argc > 1) {
     auto s = argv[1];
-    std::cout <<s << ' ' << s[0];
     if (s[0] == '0') {
       scene::sceneNumber = 0;
-    }
-    if (s[0] == '1') {
+    } else if (s[0] == '1') {
       scene::sceneNumber = 1;
     } else {
       scene::sceneNumber = 2;

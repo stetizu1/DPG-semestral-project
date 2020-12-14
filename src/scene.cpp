@@ -1,7 +1,7 @@
 #include "scene.h"
 
 
-int scene::sceneNumber = 1;
+int scene::sceneNumber = 0;
 
 const std::vector<Point3d> scene::defaultCenter = {
   Point3d(275.f, 200.f, 0.f),
