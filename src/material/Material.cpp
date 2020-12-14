@@ -3,7 +3,7 @@
 Material::Material(const Color &color, float kd, float ks, float shine)
   : color(color), kd(kd), ks(ks), shine(shine) {}
 
-Material::Material(): color(), kd(1.f), ks(0), shine(0), changeColor(true) {}
+Material::Material(ColorChanging c) : color(), kd(1.f), ks(0), shine(0), changing(c) {}
 
 std::string Material::to_string() const {
   const std::string nl = "\r\n";
@@ -25,16 +25,22 @@ const Color &Material::getColor() const {
   return color;
 }
 
-Color Material::getColor(float heightFactor) {
+Color Material::getColor(float heightFactor) const {
   heightFactor *= 3;
-  auto r = heightFactor > 1 ? 1 : heightFactor;
-  auto g = heightFactor > 2 ? 1 : std::max(heightFactor - 1, 0.f);
-  auto b = std::max(heightFactor - 2, 0.f);
-  return Color(r, g, b);
+  auto c1 = heightFactor > 1 ? 1 : heightFactor;
+  auto c2 = heightFactor > 2 ? 1 : std::max(heightFactor - 1, 0.f);
+  auto c3 = std::max(heightFactor - 2, 0.f);
+  if (changing == ColorChanging::LAVA) {
+    return Color(c1, c2, c3);
+  }
+  if (changing == ColorChanging::ICE){
+    return Color(c3, c2, c1);
+  }
+  return Color(c2, c1, c3);
 }
 
 bool Material::isChangeColor() const {
-  return changeColor;
+  return changing != ColorChanging::NONE;
 }
 
 float Material::getKd() const {

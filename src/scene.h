@@ -11,6 +11,8 @@
  * Description of the scene
  */
 struct scene {
+  static int sceneNumber;
+
   /**
    * Default width of the window
    */
@@ -40,12 +42,12 @@ struct scene {
   /**
   * Default center point
    */
-  const static Point3d defaultCenter;
+  const static std::vector<Point3d> defaultCenter;
 
   /**
    * Default eye position
    */
-  const static Vector3d defaultEye;
+  const static std::vector<Vector3d> defaultEye;
 
 
   /**

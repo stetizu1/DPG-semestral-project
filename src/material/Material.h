@@ -3,6 +3,16 @@
 #include "src/color/Color.h"
 
 /**
+ * Color changing types
+ */
+enum ColorChanging {
+  NONE,
+  LAVA,
+  ICE,
+  FIELDS
+};
+
+/**
  * Type for storing the material values
  */
 class Material {
@@ -10,7 +20,7 @@ class Material {
   float kd;
   float ks;
   float shine;
-  bool changeColor = false;
+  ColorChanging changing = ColorChanging::NONE;
 
 public:
   /**
@@ -20,12 +30,13 @@ public:
    * @param ks - specular coefficient of the material
    * @param shine - cosine power for highlights
    */
-  Material(const Color &color, float kd, float ks = 0, float shine = 0);
+  explicit Material(const Color &color, float kd, float ks = 0, float shine = 0);
 
   /**
    * Create material with varying color due to height
+   * @param c - type of changing color
    */
-  Material();
+   explicit Material(ColorChanging c = ColorChanging::LAVA);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Material &m);
@@ -41,7 +52,7 @@ public:
    * @param heightFactor - height of the sample
    * @return rgb color
    */
-  [[nodiscard]] static Color getColor(float heightFactor) ;
+  [[nodiscard]] Color getColor(float heightFactor) const ;
 
   /**
    * True if color is changing due to height

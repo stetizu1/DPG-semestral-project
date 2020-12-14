@@ -43,16 +43,10 @@ bool HeightMap::hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, floa
 bool HeightMap::checkRunX(int xFrom, int xTo, int currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection) const {
   float rayMinY = std::min(initY + slopeY * float(xFrom) * widthRatio, initY + slopeY * float(xTo) * widthRatio);
   for (auto x = xFrom; x <= xTo; x++) {
-    // prevent rounding error by trying adjacent columns (currZ - 1, currZ, currZ + 1)
-    int shifts[] = {0, -1, 1};
-    for (auto shiftIndex = 0; shiftIndex <= 2; shiftIndex++) {
-      auto shift = shifts[shiftIndex];
-      if (currZ + shift < getMapHeight() && currZ + shift >= 0) {
-        auto col = map[currZ + shift][x];
-        if (col.findIntersection(ray, intersection, rayMinY)) {
-          return true;
-        }
-      }
+
+    auto col = map[currZ][x];
+    if (col.findIntersection(ray, intersection, rayMinY)) {
+      return true;
     }
   }
   return false;
@@ -61,16 +55,10 @@ bool HeightMap::checkRunX(int xFrom, int xTo, int currZ, float initY, float slop
 bool HeightMap::checkRunZ(int zFrom, int zTo, int currX, float initY, float slopeY, const Ray &ray, Intersection &intersection) const {
   float rayMinY = std::min(initY + slopeY * float(zFrom) * depthRatio, initY + slopeY * float(zTo) * depthRatio);
   for (auto z = zFrom; z <= zTo; z++) {
-    // prevent rounding error by trying adjacent columns (currZ - 1, currZ, currZ + 1)
-    int shifts[] = {0, -1, 1};
-    for (auto shiftIndex = 0; shiftIndex <= 2; shiftIndex++) {
-      auto shift = shifts[shiftIndex];
-      if (currX + shift < getMapWidth() && currX + shift >= 0) {
-        auto col = map[z][currX + shift];
-        if (col.findIntersection(ray, intersection, rayMinY)) {
-          return true;
-        }
-      }
+
+    auto col = map[z][currX];
+    if (col.findIntersection(ray, intersection, rayMinY)) {
+      return true;
     }
   }
   return false;
