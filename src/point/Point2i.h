@@ -33,6 +33,9 @@ public:
   Point2i operator*(int k) const;
   friend Point2i operator*(int k, const Point2i &point);
   Point2i operator*=(int k);
+
+  bool operator==(Point2i &other) const;
+  bool operator!=(Point2i &other) const;
   
 
   [[nodiscard]] std::string to_string() const;

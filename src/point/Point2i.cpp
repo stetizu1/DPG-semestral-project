@@ -39,6 +39,13 @@ Point2i Point2i::operator*=(int k) {
   return *this;
 }
 
+bool Point2i::operator==(Point2i &other) const {
+  return x == other.x && z == other.z;
+}
+
+bool Point2i::operator!=(Point2i &other) const {
+  return x != other.x || z != other.z;
+}
 
 std::string Point2i::to_string() const {
   auto X_S = std::to_string(x), Z_S = std::to_string(z);

@@ -21,5 +21,5 @@ public:
    * @param intersection - intersection determined by parameter t and normal
    * @return color at the intersection
    */
-  static Color getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const Intersection &t);
+  static Color getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const Intersection &t, float heightFactor = 0.f);
 };

@@ -21,7 +21,6 @@ class HeightMap {
   const float widthRatio, depthRatio;
   const Point3d position;
   const Material material;
-
   Point3d aabbMin, aabbMax;
 
   /**
@@ -57,9 +56,9 @@ class HeightMap {
    */
   [[nodiscard]] bool hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, float &tHigh) const;
 
-  [[nodiscard]] bool checkRunX(unsigned xFrom, unsigned xTo, unsigned currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const;
+  [[nodiscard]] bool checkRunX(int xFrom, int xTo, int currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const;
 
-  [[nodiscard]] bool checkRunZ(unsigned zFrom, unsigned zTo, unsigned currX, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const;
+  [[nodiscard]] bool checkRunZ(int zFrom, int zTo, int currX, float initY, float slopeY, const Ray &ray, Intersection &intersection, int sign) const;
 
   /**
    * Check intersection in straight lines
@@ -110,13 +109,6 @@ public:
   [[nodiscard]] Point2i getIntBaseCoordinates(const Point3d &position) const;
 
   /**
-   * Get cell on given position
-   * @param position - searched position
-   * @return Cell on given position
-   */
-  [[nodiscard]] Cell getCellOnPosition(const Point3d &position) const;
-
-  /**
    * Get coordinates of the heightmap
    * @return 3d point representing coordinates
    */
@@ -127,6 +119,8 @@ public:
    * @return material of the height map
    */
   [[nodiscard]] const Material &getMaterial() const;
+
+  [[nodiscard]] unsigned int getHeight() const;
 
   /**
    * Find intersection between ray and this height map

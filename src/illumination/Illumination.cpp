@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Illumination.h"
 
-Color Illumination::getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const Intersection &intersection) {
+Color Illumination::getDirectPhongIllumination(const std::vector<Light> &lights, const Material &material, const Ray &ray, const Intersection &intersection, float heightFactor) {
   auto color = Color(0, 0, 0);
   auto intersectPoint = ray.getPointOnParameter(intersection.getT());
   auto normal = intersection.getNormal();
@@ -14,7 +14,8 @@ Color Illumination::getDirectPhongIllumination(const std::vector<Light> &lights,
     auto cosAlpha = normal.dotProduct(directionToLight);
     auto cosBeta = std::max(directionToViewer.dotProduct(directionOfReflectedLight), 0.f);
 
-    color += light.getColorIntensity() * material.getColor() * (material.getKd() * cosAlpha); // diffuse
+    auto matColor = material.isChangeColor() ? material.getColor(heightFactor) : material.getColor();
+    color += light.getColorIntensity() * matColor * (material.getKd() * cosAlpha); // diffuse
     color += light.getColorIntensity() * material.getKs() * std::pow(cosBeta, material.getShine()); // specular
   }
   return color;
