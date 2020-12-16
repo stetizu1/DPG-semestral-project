@@ -1,6 +1,6 @@
 #include "Cell.h"
 
-Cell::Cell(float topLeft, float topRight, float bottomLeft, float bottomRight, float xPos, float zPos, float width, float depth) : topLeft(topLeft), topRight(topRight), bottomLeft(bottomLeft), bottomRight(bottomRight) {
+Cell::Cell(float topLeft, float topRight, float bottomLeft, float bottomRight, float xPos, float zPos, float width, float depth) {
   maxHeight = std::max(std::max(topLeft, topRight), std::max(bottomLeft, bottomRight));
 
   auto p1 = Point3d(xPos, topLeft, zPos);
@@ -15,11 +15,9 @@ Cell::Cell(float topLeft, float topRight, float bottomLeft, float bottomRight, f
 
 std::string Cell::to_string() const {
   return "{"
-    + std::to_string(topLeft).substr(0, 4) + ","
-    + std::to_string(topRight).substr(0, 4) + ","
-    + std::to_string(bottomLeft).substr(0, 4) + ","
-    + std::to_string(bottomRight).substr(0, 4) + " --> "
-    + std::to_string(maxHeight).substr(0, 4)
+    + triangles[0].to_string() + " "
+    + triangles[1].to_string() + " with max height "
+    + std::to_string(maxHeight)
     + "} ";
 }
 
@@ -28,20 +26,14 @@ std::ostream &operator<<(std::ostream &out, const Cell &cell) {
   return out;
 }
 
-float Cell::getMaxHeight() const {
-  return maxHeight;
-}
-
 bool Cell::findIntersection(const Ray &ray, Intersection &intersection, float minHeight) {
   if (minHeight > maxHeight) return false;
   float t;
-  auto isWithFirst = triangles[0].getIntersection(ray, t);
-  if (isWithFirst) {
+  if (triangles[0].getIntersection(ray, t)) {
     intersection = Intersection(t, triangles[0].getNormal());
     return true;
   }
-  auto isWithSecond = triangles[1].getIntersection(ray, t);
-  if (isWithSecond) {
+  if (triangles[1].getIntersection(ray, t)) {
     intersection = Intersection(t, triangles[1].getNormal());
     return true;
   }

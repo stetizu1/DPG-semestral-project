@@ -21,7 +21,7 @@ void RayTracing::computeRayTrace() const {
       auto color = contextP->getBgColor();
       if (hasIntersection) {
         auto intersectPoint = ray.getPointOnParameter(intersection.getT());
-        auto heightFactor = (intersectPoint.getY() - contextP->getHeightMap()->getPosition().getY()) / float(contextP->getHeightMap()->getHeight());
+        auto heightFactor = contextP->getHeightMap()->getHeightFraction(intersectPoint.getY());
         color = Illumination::getDirectPhongIllumination(contextP->getLights(), contextP->getHeightMap()->getMaterial(), ray, intersection, heightFactor);
         for (auto &light : contextP->getLights()) {
           auto shadowRay = Ray(light.getPosition(), (intersectPoint.getNormalizedVectorBetween(light.getPosition())));
@@ -30,8 +30,8 @@ void RayTracing::computeRayTrace() const {
           if (!hasShadowIntersection) continue;
 
           auto shIntersectPoint = shadowRay.getPointOnParameter(shadowIntersection.getT());
-          auto coords = contextP->getHeightMap()->getIntBaseCoordinates(intersectPoint);
-          auto shCoords = contextP->getHeightMap()->getIntBaseCoordinates(shIntersectPoint);
+          auto coords = contextP->getHeightMap()->getGridCoordinates(intersectPoint);
+          auto shCoords = contextP->getHeightMap()->getGridCoordinates(shIntersectPoint);
           if (shCoords != coords) {
             color *= 0.1f; // leave some color
           }

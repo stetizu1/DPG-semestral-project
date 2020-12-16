@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <vector>
+#include <chrono>
 
 #include "scene.h"
 #include "src/context/Context.h"
@@ -28,12 +29,6 @@ void drawImage() {
 }
 
 void onFrame() {
-//  static float counter = 0;
-//  counter += 0.01f;
-//  if (counter > 1) {
-//    counter = 0;
-//  }
-//  Color c(counter, 0, 0);
   if (pContext == nullptr) return;
   for (int y = 0; y < bitmap.width; y++) {
     for (int x = 0; x < bitmap.height; x++) {

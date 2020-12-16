@@ -1,8 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "src/cell/Cell.h"
-#include "heightmap-reader/HeightMapReader.h"
+
+#include "Grid.h"
+#include "cell/Cell.h"
+#include "heightmap-reader/MapReader.h"
 #include "src/material/Material.h"
 #include "src/ray/Ray.h"
 #include "src/helper-types/Intersection.h"
@@ -15,11 +17,8 @@
  *
  * Provides height map data and functions for finding ray-heightmap intersections
  */
-class HeightMap {
-  std::vector<std::vector<Cell>> map;
-  const unsigned height, width, depth;
-  const float widthRatio, depthRatio;
-  const Point3d position;
+class HeightMap : public Grid {
+  const float height, width, depth;
   const Material material;
   Point3d aabbMin, aabbMax;
 
@@ -45,7 +44,7 @@ class HeightMap {
    * @param tHigh - current found tHigh
    * @return true if intersection exist in y dimension
    */
-  static bool findIntersectionInYAxis(const Vector3d &minToOrigin, const Vector3d &maxToOrigin, const Vector3d &direction, float tLow, float tHigh);
+  static bool hasHeightIntersection(const Vector3d &minToOrigin, const Vector3d &maxToOrigin, const Vector3d &direction, float tLow, float tHigh);
 
   /**
    * Find t low and t high between AABB of the height map and ray
@@ -79,34 +78,10 @@ public:
    * @param depth - depth of the height map
    * @param material - material of the heightmap
    */
-  explicit HeightMap(const HeightMapReader &reader, const Point3d &position, unsigned width, unsigned height, unsigned depth, const Material &material);
+  explicit HeightMap(const MapReader &reader, const Point3d &position, float width, float height, float depth, const Material &material);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const HeightMap &h);
-
-  /**
-   * Get coordinate height of the map (rows)
-   * @return height of map matrix
-   */
-  [[nodiscard]] unsigned getMapHeight() const;
-
-  /**
-   * Get coordinate width of the map (columns)
-   * @return width of the matrix
-   */
-  [[nodiscard]] unsigned getMapWidth() const;
-
-  /**
-   * Get coordinates in the map grid (rows and columns)
-   * @return 2d coordinate point
-   */
-  [[nodiscard]] Point2d getBaseCoordinates(const Point3d &position) const;
-
-  /**
-   * Get rounded coordinates in the map grid (rows and columns indices)
-   * @return 2d coordinate for height map
-   */
-  [[nodiscard]] Point2i getIntBaseCoordinates(const Point3d &position) const;
 
   /**
    * Get coordinates of the heightmap
@@ -120,7 +95,11 @@ public:
    */
   [[nodiscard]] const Material &getMaterial() const;
 
-  [[nodiscard]] unsigned int getHeight() const;
+  /**
+   * Get height fraction of the height map
+   * @return height fraction (ratio how high is the point against max heightmap height)
+   */
+  [[nodiscard]] float getHeightFraction(float y) const;
 
   /**
    * Find intersection between ray and this height map

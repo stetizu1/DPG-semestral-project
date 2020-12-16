@@ -25,7 +25,7 @@ add_executable(${NAME}
     src/vector/Vector3d.cpp src/vector/Vector3d.h
     src/vector/Vector4d.cpp src/vector/Vector4d.h
     src/ray/Ray.cpp src/ray/Ray.h
-    src/heightmap/heightmap-reader/HeightMapReader.cpp src/heightmap/heightmap-reader/HeightMapReader.h
+    src/heightmap/heightmap-reader/MapReader.cpp src/heightmap/heightmap-reader/MapReader.h
     src/matrix/Matrix4d.cpp src/matrix/Matrix4d.h
     src/heightmap/HeightMap.cpp src/heightmap/HeightMap.h
     src/light/Light.cpp src/light/Light.h
@@ -36,9 +36,12 @@ add_executable(${NAME}
     src/helper-types/Viewport.cpp src/helper-types/Viewport.h
     src/raytracing/RayTracing.cpp src/raytracing/RayTracing.h
     src/helper-types/Intersection.h
-    src/cell/Cell.cpp src/cell/Cell.h
+    src/heightmap/cell/Cell.cpp src/heightmap/cell/Cell.h
     src/point/Point2d.cpp src/point/Point2d.h
     src/point/Point2i.cpp src/point/Point2i.h
+    src/heightmap/Grid.cpp src/heightmap/Grid.h
+    src/rational/Rational.cpp src/rational/Rational.h
+    src/heightmap/GridIntersection.cpp src/heightmap/GridIntersection.h
     )
 
 if (NOT GLUT_FOUND)

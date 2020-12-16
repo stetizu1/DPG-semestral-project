@@ -11,7 +11,7 @@
 /**
  * Class for reading height map from file
  */
-class HeightMapReader {
+class MapReader {
   std::vector<std::vector<float>> imageMatrix;
   /**
    * Reads intensities of pixels from gray / one of rgb channel determined by step
@@ -27,7 +27,7 @@ public:
    * Reads map from given file and stores it inside imageMap;
    * @param fileName - name of file from which can heightmap be read
    */
-  explicit HeightMapReader(const std::string &fileName);
+  explicit MapReader(const std::string &fileName);
 
   /**
    * Get width of image

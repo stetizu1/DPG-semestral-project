@@ -1,6 +1,6 @@
-#include "HeightMapReader.h"
+#include "MapReader.h"
 
-void HeightMapReader::readFormat(unsigned width, unsigned height, const unsigned char *pixels, const unsigned step) {
+void MapReader::readFormat(unsigned width, unsigned height, const unsigned char *pixels, const unsigned step) {
   for (unsigned i = 0; i < width * height; ++i) {
     unsigned char v = *pixels;
     unsigned x = i / width;
@@ -10,7 +10,7 @@ void HeightMapReader::readFormat(unsigned width, unsigned height, const unsigned
   }
 }
 
-HeightMapReader::HeightMapReader(const std::string &fileName) {
+MapReader::MapReader(const std::string &fileName) {
   const auto fileName_c = fileName.c_str();
   corona::Image *img = corona::OpenImage(fileName_c);
   if (!img) {
@@ -45,18 +45,14 @@ HeightMapReader::HeightMapReader(const std::string &fileName) {
 
   delete img;
 }
-unsigned HeightMapReader::getImageHeight() const {
+unsigned MapReader::getImageHeight() const {
   if (imageMatrix.empty()) return 0;
   return imageMatrix.size();
 }
 
-unsigned HeightMapReader::getImageWidth() const {
+unsigned MapReader::getImageWidth() const {
   return imageMatrix[0].size();
 }
-float HeightMapReader::getIntensityAt(unsigned row, unsigned col) const {
-  if (col >= getImageWidth() || row >= getImageHeight()) {
-    std::cerr << "Queried point was ouf of range" << std::endl;
-    throw std::out_of_range("point out of range was queried");
-  }
+float MapReader::getIntensityAt(unsigned row, unsigned col) const {
   return imageMatrix[row][col];
 }

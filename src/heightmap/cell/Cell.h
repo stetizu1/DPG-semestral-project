@@ -10,8 +10,7 @@
  * Provide operation for finding intersection with cell triangles
  */
 class Cell {
-  float topLeft{}, topRight{}, bottomLeft{}, bottomRight{};
-  float maxHeight{};
+  float maxHeight = 0.f;
   std::vector<Triangle> triangles;
 
 public:
@@ -32,12 +31,6 @@ public:
    * @param depth - depth of the cell (z)
    */
   Cell(float topLeft, float topRight, float bottomLeft, float bottomRight, float xPos, float zPos, float width, float depth);
-
-  /**
-   * Get maximal height in the cell
-   * @return maximal height from height samples in the cell
-   */
-  [[nodiscard]] float getMaxHeight() const;
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Cell &cell);

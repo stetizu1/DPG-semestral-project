@@ -15,4 +15,4 @@ Zuzana Štětinová, stetizu1@fel.cvut.cz
 
 Předmět: Datové struktury pro počítačovou grafiku
 
-Datum ukončení projektu: 14. 12. 2020
+Datum ukončení projektu: 16. 12. 2020
