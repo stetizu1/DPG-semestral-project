@@ -2,11 +2,10 @@
 
 #include <vector>
 #include <utility>
-#include <src/heightmap/heightmap-reader/MapReader.h>
-
 #include "cell/Cell.h"
 #include "src/point/Point2d.h"
 #include "src/point/Point2i.h"
+#include "src/heightmap/heightmap-reader/MapReader.h"
 
 /**
  * Class for grid underlying the height field
@@ -25,7 +24,7 @@ protected:
    * @param cellD - depth of the cell
    * @param position - position of the grid (map)
    */
-  Grid(const MapReader &reader, float height, float cellW, float cellD, const Point3d &position);
+  explicit Grid(const MapReader &reader, float height, float cellW, float cellD, const Point3d &position);
 
 public:
   /**

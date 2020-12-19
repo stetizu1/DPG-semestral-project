@@ -13,6 +13,7 @@
  */
 class Illumination {
 public:
+  Illumination() = delete; // static singleton
   /**
    * Get direct phong illumination at ray-triangle intersection
    * @param lights - scene lights

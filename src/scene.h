@@ -41,7 +41,7 @@ struct scene {
   /**
    * Multiplier to transfer real numbers to rationals
    */
-  constexpr static const float precision = 100000.f;
+  constexpr static const double precision = 10000.;
 
 
   /**

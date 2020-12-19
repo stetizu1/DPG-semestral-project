@@ -20,7 +20,7 @@ public:
    * @param inverseModelView - inverted model view
    * @param context - scene context
    */
-  RayTracing(Matrix4d inverseMatrix, Matrix4d inverseModelView, Context *context);
+  explicit RayTracing(Matrix4d inverseMatrix, Matrix4d inverseModelView, Context *context);
 
   /**
    * Computes ray tracing for screen space and saves it to color buffer in given context

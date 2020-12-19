@@ -17,7 +17,7 @@ public:
   /**
    * Create empty cell
    */
-  Cell() = default;
+  explicit Cell() = default;
 
   /**
    * Create cell with height samples
@@ -30,7 +30,7 @@ public:
    * @param width - width of the cell (x)
    * @param depth - depth of the cell (z)
    */
-  Cell(float topLeft, float topRight, float bottomLeft, float bottomRight, float xPos, float zPos, float width, float depth);
+  explicit Cell(float topLeft, float topRight, float bottomLeft, float bottomRight, float xPos, float zPos, float width, float depth);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const Cell &cell);

@@ -13,11 +13,9 @@ class GridIntersection : public Grid {
    * Struct for storing transformation to be applied
    */
   struct Transformation {
-    bool swapXZ;
-    bool plusX;
-    bool plusZ;
-    Point2i first;
-    Transformation(bool swapXz, bool plusX, bool plusZ, const Point2i &first);
+    bool horizontal;
+    bool positive;
+    Transformation(bool horizontal, bool positive);
   };
 
   /**
@@ -35,7 +33,7 @@ class GridIntersection : public Grid {
   [[nodiscard]] bool findIntersectionInRun(const Transformation &transformation, int from, int to, int otherCoord, float initY, float stepY, const Ray &ray, Intersection &intersection) const;
 
   /**
-   * Find intersection between normalized ray and height field
+   * Find intersection between horizontal ray and height field
    * @param transformation - transformation to be applied to run
    * @param from - point where ray traversal begins
    * @param initY - Y at the from point (when ray enters the grid)
@@ -45,7 +43,20 @@ class GridIntersection : public Grid {
    * @param intersection - where found intersection is stored
    * @return true if intersection in run is found
    */
-  [[nodiscard]] bool findBasicRayIntersection(const Transformation &transformation, const Point2d &from, float initY, float stepY, const Point2d &gridRay, const Ray &ray, Intersection &intersection) const;
+  [[nodiscard]] bool findBasicRayIntersectionX(const Transformation &transformation, const Point2d &from, float initY, float stepY, const Point2d &gridRay, const Ray &ray, Intersection &intersection) const;
+
+  /**
+   * Find intersection between vertical ray and height field
+   * @param transformation - transformation to be applied to run
+   * @param from - point where ray traversal begins
+   * @param initY - Y at the from point (when ray enters the grid)
+   * @param stepY - step how Y is changed with change of the direction given by transformation
+   * @param gridRay - ray projected to the grid
+   * @param ray - original ray we are investigating
+   * @param intersection - where found intersection is stored
+   * @return true if intersection in run is found
+   */
+  [[nodiscard]] bool findBasicRayIntersectionZ(const Transformation &transformation, const Point2d &from, float initY, float stepY, const Point2d &gridRay, const Ray &ray, Intersection &intersection) const;
 
   /**
    * Looks if given points form vertical or horizontal line. If so, finds if there is any intersection between the ray on the vertical / horizontal line
@@ -67,7 +78,7 @@ protected:
    * @param cellD - depth of the cell
    * @param position - position of the grid (map)
    */
-  GridIntersection(const MapReader &reader, float height, float cellW, float cellD, const Point3d &position);
+  explicit GridIntersection(const MapReader &reader, float height, float cellW, float cellD, const Point3d &position);
 
   /**
    * Find intersection between ray and height map

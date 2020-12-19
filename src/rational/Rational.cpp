@@ -38,7 +38,7 @@ Rational::Rational(long long n, long long d, bool checked) : numerator(n) {
 
 Rational::Rational(long long n, long long d) : Rational(n, d, false) {
   if (d == 0) {
-    std::cerr << "Rational can not have 0 as denominator";
+    std::cerr << "Rational can not have 0 as denominator (increase precision)";
     throw std::invalid_argument("0 denominator given");
   }
 }

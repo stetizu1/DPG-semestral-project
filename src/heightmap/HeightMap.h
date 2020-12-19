@@ -55,19 +55,6 @@ class HeightMap : public GridIntersection {
    */
   [[nodiscard]] bool hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, float &tHigh) const;
 
-  [[nodiscard]] bool checkRunX(int xFrom, int xTo, int currZ, float initY, float slopeY, const Ray &ray, Intersection &intersection) const;
-
-  [[nodiscard]] bool checkRunZ(int zFrom, int zTo, int currX, float initY, float slopeY, const Ray &ray, Intersection &intersection) const;
-
-  /**
-   * Check intersection in straight lines
-   * @param from - point from which we traverse height map
-   * @param ray - investigated ray
-   * @param intersection - struct to store intersection if found
-   * @return true if intersection is found
-   */
-  [[nodiscard]] bool checkIntersectionLine(const Point3d &from, const Ray &ray, Intersection &intersection) const;
-
 public:
   /**
    * Create height map from height map reader with given parameters
