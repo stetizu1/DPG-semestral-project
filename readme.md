@@ -7,11 +7,12 @@ Semestrální práce se zabývá procházením paprsků v mřížce pomocí digi
 
 Program byl napsán pro Windows 10
 
+Program lze spustit bez parametrů, s jedním nebo se 2 parametry. První parametr je číslo scény (1, 2 nebo 3), druhý cesta k výškové mapě. Pro ukázkové mapy použijte přiložené soubory ve složce bat.
+
 Použitá literatura: 
 * Accelerating the Ray Tracing of height fields https://www.researchgate.net/publication/220979067_Accelerating_the_ray_tracing_of_height_fields
 
-Author:
-Zuzana Štětinová, stetizu1@fel.cvut.cz
+Autor: Zuzana Štětinová, stetizu1@fel.cvut.cz
 
 Předmět: Datové struktury pro počítačovou grafiku
 
