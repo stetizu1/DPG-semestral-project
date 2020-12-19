@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "src/point/Point3d.h"
+#include "src/vector/Vector3d.h"
 #include "src/color/Color.h"
 #include "src/material/Material.h"
 #include "src/heightmap/HeightMap.h"
@@ -76,7 +78,22 @@ struct scene {
   static const std::vector<Material> materials;
 
   /**
+   * Definition of scene height maps paths
+   */
+  static std::vector<std::string> heightMapPaths;
+
+  /**
+   * Definition of scene height maps positions
+   */
+  static std::vector<Point3d> heightMapPositions;
+
+  /**
+   * Definition of scene height maps dimensions
+   */
+  static std::vector<Vector3d> heightMapDimensions;
+
+  /**
    * Definition of scene height maps
    */
-  static const std::vector<HeightMap> heightMaps;
+  static std::vector<HeightMap> heightMaps;
 };

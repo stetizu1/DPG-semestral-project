@@ -6,8 +6,12 @@ Material::Material(const Color &color, float kd, float ks, float shine)
 Material::Material(ColorChanging c) : color(), kd(1.f), ks(0), shine(0), changing(c) {}
 
 std::string Material::to_string() const {
+  if (isChangeColor()) {
+    return "Material - changing: " + std::to_string(changing);
+  }
+
   const std::string nl = "\r\n";
-  auto s = "light(" + nl;
+  auto s = "material(" + nl;
   s += "  color: " + color.to_string() + nl;
   s += "  kd: " + std::to_string(kd) + nl;
   s += "  ks: " + std::to_string(ks) + nl;
@@ -33,7 +37,7 @@ Color Material::getColor(float heightFactor) const {
   if (changing == ColorChanging::LAVA) {
     return Color(c1, c2, c3);
   }
-  if (changing == ColorChanging::ICE){
+  if (changing == ColorChanging::ICE) {
     return Color(c3, c2, c1);
   }
   return Color(c2, c1, c3);

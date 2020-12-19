@@ -19,7 +19,7 @@ Context::Context(unsigned int width, unsigned int height, const HeightMap *heigh
   rayTrace();
 }
 
-Context::Context() : Context(scene::defaultWidth, scene::defaultHeight, &scene::heightMaps[scene::sceneNumber], scene::defaultBgColor) {}
+Context::Context() : Context(scene::defaultWidth, scene::defaultHeight, &scene::heightMaps[0], scene::defaultBgColor) {}
 
 const std::vector<Light> &Context::getLights() const {
   return lights;

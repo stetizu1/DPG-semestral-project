@@ -39,9 +39,9 @@ bool HeightMap::hasIntersectionWithBoundingBox(const Ray &ray, float &tLow, floa
   return true;
 }
 
-HeightMap::HeightMap(const MapReader &reader, const Point3d &position, float width, float height, float depth, const Material &material)
-  : GridIntersection(reader, height, float(width) / float(reader.getImageWidth() - 1),  float(depth) / float(reader.getImageHeight() - 1), position),
-  height(height), width(width), depth(depth), material(material) {
+HeightMap::HeightMap(const MapReader &reader, const Point3d &position, const Vector3d &size, const Material &material)
+  : GridIntersection(reader, size.getY(), float(size.getX()) / float(reader.getImageWidth() - 1),  float(size.getZ()) / float(reader.getImageHeight() - 1), position),
+  height(size.getY()), width(size.getX()), depth(size.getZ()), material(material) {
   auto other = position + Point3d(width, height, depth);
   aabbMin = position.minimalCoords(other);
   aabbMax = position.maximalCoords(other);

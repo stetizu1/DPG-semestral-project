@@ -31,9 +31,23 @@ const std::vector<Material> scene::materials = {
   Material(ColorChanging::ICE)
 };
 
-const std::vector<HeightMap> scene::heightMaps = {
-  HeightMap(MapReader("../data/Simple.png"), Point3d(0, 0, -150), 500, 175, 500, materials[0]),
-  HeightMap(MapReader("../data/GrandCanyon.jpg"), Point3d(0, 0, -300), 550, 150, 550, materials[1]),
-  HeightMap(MapReader("../data/Sumava.png"), Point3d(-50, -100, -50), 680, 200, 680, materials[2])
+std::vector<std::string> scene::heightMapPaths = {
+  "../data/Simple.png",
+  "../data/GrandCanyon.jpg",
+  "../data/Sumava.png"
 };
+
+std::vector<Point3d> scene::heightMapPositions = {
+  Point3d(0, 0, -150),
+  Point3d(0, 0, -300),
+  Point3d(-50, -100, -50)
+};
+
+std::vector<Vector3d> scene::heightMapDimensions = {
+  Vector3d(500, 175, 500),
+  Vector3d(550, 150, 550),
+  Vector3d(680, 200, 680)
+};
+
+std::vector<HeightMap> scene::heightMaps = {};
 

@@ -8,6 +8,7 @@
 #include "src/material/Material.h"
 #include "src/ray/Ray.h"
 #include "src/helper-types/Intersection.h"
+#include "src/vector/Vector3d.h"
 #include "src/point/Point3d.h"
 #include "src/point/Point2d.h"
 #include "src/point/Point2i.h"
@@ -60,12 +61,13 @@ public:
    * Create height map from height map reader with given parameters
    * @param reader - HeightMapReader that was used to read file with heightmap
    * @param position - position of the height map
+   * @param size - vector storing width, depth and height of the height map
    * @param width - width of the height map
    * @param height - height of the height map
    * @param depth - depth of the height map
    * @param material - material of the heightmap
    */
-  explicit HeightMap(const MapReader &reader, const Point3d &position, float width, float height, float depth, const Material &material);
+  explicit HeightMap(const MapReader &reader, const Point3d &position, const Vector3d &size, const Material &material);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &out, const HeightMap &h);

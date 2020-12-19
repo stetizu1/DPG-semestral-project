@@ -48,14 +48,33 @@ void onKeys(unsigned char key, int x, int y) {
 
 int main(int argc, char **argv) {
   if (argc > 1) {
+    int sn = 0;
     auto s = argv[1];
     if (s[0] == '0') {
-      scene::sceneNumber = 0;
+      sn = 0;
     } else if (s[0] == '1') {
-      scene::sceneNumber = 1;
+      sn = 1;
+    } else if (s[0] == '2') {
+      sn = 2;
     } else {
-      scene::sceneNumber = 2;
+      std::cout << "If you want to run program with arguments, use:"
+        << std::endl << "[scene_numer] ?[heightmap_path]" << std::endl
+        << "where:" << std::endl <<
+        " [scene_numer] = number of scene, you want to run" << std::endl <<
+        " ?[heightmap_path] = {optional}, the path to heightmap you want to display (grayscale image)" << std::endl
+        << "example:" << std::endl << " 2 ../data/Simple.png";
+      return 0;
     }
+    if (argc > 2) {
+      auto path = argv[2];
+      scene::heightMaps.emplace_back(HeightMap(MapReader(path), scene::heightMapPositions[sn], scene::heightMapDimensions[sn], scene::materials[sn]));
+    } else {
+      scene::heightMaps.emplace_back(HeightMap(MapReader(scene::heightMapPaths[sn]), scene::heightMapPositions[sn], scene::heightMapDimensions[sn], scene::materials[sn]));
+    }
+    scene::sceneNumber = sn;
+  } else {
+    int sn = scene::sceneNumber;
+    scene::heightMaps.emplace_back(HeightMap(MapReader(scene::heightMapPaths[sn]), scene::heightMapPositions[sn], scene::heightMapDimensions[sn], scene::materials[sn]));
   }
   auto context = Context();
   pContext = &context;
