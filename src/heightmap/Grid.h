@@ -51,5 +51,11 @@ public:
    * @return 2d coordinate for height map
    */
   [[nodiscard]] Point2i getGridCoordinates(const Point3d &pos) const;
+
+  /**
+   * Get map coordinates of the given 2d point (rows and columns indices)
+   * @return 2d coordinate for height map
+   */
+  [[nodiscard]] Point2i getGridCoordinates(const Point2d &pos) const;
 };
 

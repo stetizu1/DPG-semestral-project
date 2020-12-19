@@ -38,6 +38,11 @@ struct scene {
   */
   constexpr static const float zFar = 1800.f;
 
+  /**
+   * Multiplier to transfer real numbers to rationals
+   */
+  constexpr static const float precision = 100000.f;
+
 
   /**
   * Default center point

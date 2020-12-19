@@ -26,7 +26,7 @@ std::ostream &operator<<(std::ostream &out, const Cell &cell) {
   return out;
 }
 
-bool Cell::findIntersection(const Ray &ray, Intersection &intersection, float minHeight) {
+bool Cell::findIntersection(const Ray &ray, Intersection &intersection, float minHeight) const {
   if (minHeight > maxHeight) return false;
   float t;
   if (triangles[0].getIntersection(ray, t)) {

@@ -67,3 +67,17 @@ float Point2d::getX() const {
 float Point2d::getZ() const {
   return z;
 }
+
+Point2d Point2d::swapped() const {
+  return Point2d(z, x);
+}
+
+Point2d Point2d::invertX() const {
+  return Point2d(-x, z);
+}
+
+Point2d Point2d::invertZ() const {
+  return Point2d(x, -z);
+}
+
+

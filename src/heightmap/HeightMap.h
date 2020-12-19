@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "Grid.h"
+#include "GridIntersection.h"
 #include "cell/Cell.h"
 #include "heightmap-reader/MapReader.h"
 #include "src/material/Material.h"
@@ -17,7 +17,7 @@
  *
  * Provides height map data and functions for finding ray-heightmap intersections
  */
-class HeightMap : public Grid {
+class HeightMap : public GridIntersection {
   const float height, width, depth;
   const Material material;
   Point3d aabbMin, aabbMax;

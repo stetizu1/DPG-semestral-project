@@ -51,4 +51,22 @@
      * @return z coordinate
      */
     [[nodiscard]] float getZ() const;
+
+    /**
+     * Get point with swapped coordinates (z, x)
+     * @return swapped point
+     */
+    [[nodiscard]] Point2d swapped() const;
+
+    /**
+     * Get point with inverted x (-x, z)
+     * @return point with inverted x
+     */
+    [[nodiscard]] Point2d invertX() const;
+
+    /**
+     * Get point with inverted z (x, -z)
+     * @return point with inverted z
+     */
+    [[nodiscard]] Point2d invertZ() const;
   };

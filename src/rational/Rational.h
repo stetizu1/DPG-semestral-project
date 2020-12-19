@@ -7,8 +7,8 @@
  * Does not normalizeRational to minimal value.
  */
 class Rational {
-  int numerator;
-  int denominator;
+  long long numerator;
+  long long denominator;
 
   friend void normalizeRational(Rational &rational);
   void normalize();
@@ -19,29 +19,29 @@ class Rational {
    * @param d - denominator
    * @param checked - true if already normalized
    */
-  Rational(int n, int d, bool checked);
+  Rational(long long n, long long d, bool checked);
 public:
   /**
    * Create rational number with nominator and denominator, if it does exist
    * @param n - nominator
    * @param d - denominator
    */
-  Rational(int n, int d);
+  Rational(long long n, long long d);
 
   Rational operator+(const Rational &other) const;
   Rational operator-(const Rational &other) const;
   Rational operator*(const Rational &other) const;
   Rational operator/(const Rational &other) const;
 
-  Rational operator+(int k) const;
-  Rational operator-(int k) const;
-  Rational operator*(int k) const;
-  Rational operator/(int k) const;
+  Rational operator+(long long k) const;
+  Rational operator-(long long k) const;
+  Rational operator*(long long k) const;
+  Rational operator/(long long k) const;
 
-  friend Rational operator+(int k, const Rational &rational);
-  friend Rational operator-(int k, const Rational &rational);
-  friend Rational operator*(int k, const Rational &rational);
-  friend Rational operator/(int k, const Rational &rational);
+  friend Rational operator+(long long k, const Rational &rational);
+  friend Rational operator-(long long k, const Rational &rational);
+  friend Rational operator*(long long k, const Rational &rational);
+  friend Rational operator/(long long k, const Rational &rational);
 
   friend Rational operator-(const Rational &rational);
 
@@ -49,21 +49,21 @@ public:
   Rational operator-=(const Rational &other);
   Rational operator*=(const Rational &other);
   Rational operator/=(const Rational &other);
-  Rational operator+=(int num);
-  Rational operator-=(int num);
-  Rational operator*=(int num);
-  Rational operator/=(int num);
+  Rational operator+=(long long num);
+  Rational operator-=(long long num);
+  Rational operator*=(long long num);
+  Rational operator/=(long long num);
 
 
-  bool operator<(int num) const;
-  bool operator>(int num) const;
-  bool operator<=(int num) const;
-  bool operator>=(int num) const;
+  bool operator<(long long num) const;
+  bool operator>(long long num) const;
+  bool operator<=(long long num) const;
+  bool operator>=(long long num) const;
 
-  friend bool operator<(int num, const Rational &rational);
-  friend bool operator>(int num, const Rational &rational);
-  friend bool operator<=(int num, const Rational &rational);
-  friend bool operator>=(int num, const Rational &rational);
+  friend bool operator<(long long num, const Rational &rational);
+  friend bool operator>(long long num, const Rational &rational);
+  friend bool operator<=(long long num, const Rational &rational);
+  friend bool operator>=(long long num, const Rational &rational);
 
   bool operator<(const Rational &rational) const;
   bool operator>(const Rational &rational) const;
@@ -73,11 +73,11 @@ public:
   bool operator==(const Rational &rational) const;
   bool operator!=(const Rational &rational) const;
 
-  bool operator==(int num) const;
-  bool operator!=(int num) const;
+  bool operator==(long long num) const;
+  bool operator!=(long long num) const;
 
-  friend bool operator==(int num, const Rational &rational);
-  friend bool operator!=(int num, const Rational &rational);
+  friend bool operator==(long long num, const Rational &rational);
+  friend bool operator!=(long long num, const Rational &rational);
 
   [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &os, const Rational &rational);

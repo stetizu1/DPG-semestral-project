@@ -162,7 +162,7 @@ bool HeightMap::checkIntersectionLine(const Point3d &from, const Ray &ray, Inter
 }
 
 HeightMap::HeightMap(const MapReader &reader, const Point3d &position, float width, float height, float depth, const Material &material)
-  : Grid(reader, height, float(width) / float(reader.getImageWidth() - 1),  float(depth) / float(reader.getImageHeight() - 1), position),
+  : GridIntersection(reader, height, float(width) / float(reader.getImageWidth() - 1),  float(depth) / float(reader.getImageHeight() - 1), position),
   height(height), width(width), depth(depth), material(material) {
   auto other = position + Point3d(width, height, depth);
   aabbMin = position.minimalCoords(other);
@@ -205,7 +205,8 @@ bool HeightMap::findIntersection(const Ray &ray, Intersection &intersection) con
   if (!hasIntersectionWithBoundingBox(ray, aabbTLow, aabbTHigh)) return false;
   const auto from = ray.getPointOnParameter(aabbTLow);
   const auto to = ray.getPointOnParameter(aabbTHigh);
-  return checkIntersectionLine(from, ray, intersection);
+  return findRayIntersection(from, to, ray, intersection);
+  //return checkIntersectionLine(from, ray, intersection);
 }
 
 

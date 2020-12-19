@@ -42,5 +42,5 @@ public:
    * @param minHeight - minimal ray height in the bounding box
    * @return true if intersection is found
    */
-  bool findIntersection(const Ray &ray, Intersection &intersection, float minHeight = -std::numeric_limits<float>::infinity());
+  bool findIntersection(const Ray &ray, Intersection &intersection, float minHeight = -std::numeric_limits<float>::infinity()) const;
 };

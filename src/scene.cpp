@@ -1,7 +1,7 @@
 #include "scene.h"
 
 
-int scene::sceneNumber = 0;
+int scene::sceneNumber = 1;
 
 const std::vector<Point3d> scene::defaultCenter = {
   Point3d(275.f, 200.f, 0.f),
@@ -32,8 +32,8 @@ const std::vector<Material> scene::materials = {
 };
 
 const std::vector<HeightMap> scene::heightMaps = {
-  HeightMap(HeightMapReader("../data/Sumava.png"), Point3d(-50, 0, -50), 680, 200, 680, materials[0]),
-  HeightMap(HeightMapReader("../data/grand_canyon.jpg"), Point3d(0, 0, -300), 550, 150, 550, materials[1]),
-  HeightMap(HeightMapReader("../data/vzorek.png"), Point3d(0, 0, -150), 500, 175, 500, materials[2])
+  HeightMap(MapReader("../data/Sumava.png"), Point3d(-50, 0, -50), 680, 200, 680, materials[0]),
+  HeightMap(MapReader("../data/grand_canyon.jpg"), Point3d(0, 0, -300), 550, 150, 550, materials[1]),
+  HeightMap(MapReader("../data/vzorek.png"), Point3d(0, 0, -150), 500, 175, 500, materials[2])
 };
 

@@ -40,7 +40,12 @@ Point2d Grid::getGridPoint(const Point3d &pos) const {
 
 Point2i Grid::getGridCoordinates(const Point3d &pos) const {
   auto base = getGridPoint(pos);
-  auto x = std::min(int(base.getX()), int(getGridWidth()));
-  auto y = std::min(int(base.getZ()), int(getGridDepth()));
+  auto x = std::min(int(base.getX()), int(getGridWidth() - 1));
+  auto y = std::min(int(base.getZ()), int(getGridDepth() - 1));
+  return Point2i(x, y);
+}
+Point2i Grid::getGridCoordinates(const Point2d &pos) const {
+  auto x = std::min(int(pos.getX()), int(getGridWidth() - 1));
+  auto y = std::min(int(pos.getZ()), int(getGridDepth() - 1));
   return Point2i(x, y);
 }
